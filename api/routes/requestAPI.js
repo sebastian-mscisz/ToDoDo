@@ -22,7 +22,17 @@ function handleDisconnect(connection) {
 
 handleDisconnect(connection);
 
-router.get("/userlist", function (req, res, next) {
+router.get("/userlist", function (req, res) {
+  let login = req.query.login;
+  connection.query(
+    "SELECT id, login FROM users WHERE login = '" + login + "'",
+    function (err, result) {
+      if (err) throw err;
+      res.send(JSON.stringify(result));
+    }
+  );
+});
+router.get("/logIn", function (req, res) {
   let login = req.query.login;
   let password = req.query.password;
   connection.query(
@@ -38,10 +48,27 @@ router.get("/userlist", function (req, res, next) {
   );
 });
 
-router.get("/tasks", function (req, res, next) {
+router.get("/tasks", function (req, res) {
   const userId = req.query.userId;
   connection.query(
     "SELECT * FROM tasks WHERE userId = '" + userId + "'",
+    function (err, result) {
+      if (err) throw err;
+      res.send(JSON.stringify(result));
+    }
+  );
+});
+
+router.post("/addUser", function (req, res) {
+  console.log("na add");
+  let login = req.body.login;
+  let password = req.body.password;
+  connection.query(
+    "INSERT INTO users(login, password) VALUES ('" +
+      login +
+      "', '" +
+      password +
+      "')",
     function (err, result) {
       if (err) throw err;
       res.send(JSON.stringify(result));

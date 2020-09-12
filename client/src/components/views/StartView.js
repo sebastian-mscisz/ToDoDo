@@ -15,10 +15,11 @@ const StartView = (props) => {
         </NavLink>
       )}
 
-      {props.loggedIn ? <button>nani</button> : null}
-      <NavLink to="/register">
-        <button>Zarejestruj się!</button>
-      </NavLink>
+      {props.loggedIn ? null : (
+        <NavLink to="/register">
+          <button>Zarejestruj się!</button>
+        </NavLink>
+      )}
     </>
   );
 };
