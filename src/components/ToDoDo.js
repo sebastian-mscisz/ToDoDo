@@ -4,6 +4,7 @@ import RegisterView from "./views/RegisterView";
 import LoginView from "./views/LoginView";
 import ListView from "./views/ListView";
 import Header from "./layouts/Header";
+
 import {
   HashRouter as Router,
   Route,
@@ -15,8 +16,6 @@ class ToDoDo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      login: "",
-      password: "",
       loggedIn: false,
       currentUser: "",
       tasks: null,
@@ -24,36 +23,19 @@ class ToDoDo extends Component {
     };
   }
 
-  handleInputChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    if (name === "loginInput") {
-      this.setState({
-        login: value,
-      });
-    } else if (name === "passwordInput") {
-      this.setState({
-        password: value,
-      });
-    }
-  };
-
-  handleLoginSubmit = (e) => {
-    e.preventDefault();
-    this.loginVerification();
+  handleLogIn = (user) => {
     this.setState({
-      login: "",
-      password: "",
+      currentUser: user,
+      loggedIn: true,
     });
+    this.getTasks(user.id);
   };
 
   getTasks = (id) => {
     fetch(`http://localhost:9000/requestAPI/tasks?userId=${id}`)
       .then((res) => res.json())
       .then((res) => {
-        if (res != "") {
-          this.setState({ tasks: res, tasksLoaded: true });
-        }
+        this.setState({ tasks: res, tasksLoaded: true });
       })
       .catch((err) => err);
   };
@@ -66,23 +48,6 @@ class ToDoDo extends Component {
       tasksLoaded: false,
     });
   };
-
-  loginVerification() {
-    const login = this.state.login;
-    const password = this.state.password;
-    this.getTasks();
-    fetch(
-      `http://localhost:9000/requestAPI/userlist?login=${login}&password=${password}`
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        if (res != "") {
-          this.setState({ currentUser: res[0], loggedIn: true });
-          this.getTasks(res[0].id);
-        }
-      })
-      .catch((err) => err);
-  }
 
   componentDidUpdate() {}
 
@@ -109,18 +74,15 @@ class ToDoDo extends Component {
               this.state.tasksLoaded ? (
                 <Redirect to="/list" />
               ) : (
-                <LoginView
-                  {...props}
-                  handleLoginSubmit={this.handleLoginSubmit}
-                  handleInputChange={this.handleInputChange}
-                  tasksLoaded={this.state.tasksLoaded}
-                  login={this.state.login}
-                  password={this.state.password}
-                />
+                <LoginView {...props} handleLogIn={this.handleLogIn} />
               )
             }
           />
-          <Route path="/register" exact component={RegisterView} />
+          <Route
+            path="/register"
+            exact
+            render={(props) => <RegisterView {...props} />}
+          />
           <Route
             path="/list"
             exact
