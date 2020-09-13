@@ -18,7 +18,7 @@ class ToDoDo extends Component {
     this.state = {
       loggedIn: false,
       currentUser: "",
-      tasks: null,
+      tasks: [],
       tasksLoaded: false,
     };
   }
@@ -47,6 +47,26 @@ class ToDoDo extends Component {
       tasks: null,
       tasksLoaded: false,
     });
+  };
+
+  addTask = (name, dueDate, tags) => {
+    let id;
+    if (this.state.tasks.length > 0) {
+      id = this.state.tasks[this.state.tasks.length - 1].id + 1;
+    } else id = 1;
+    let tasks = [
+      ...this.state.tasks,
+      {
+        dueDate: dueDate,
+        finishDate: null,
+        finished: 0,
+        id: id,
+        name: name,
+        tags: tags,
+        userId: this.state.currentUser.id,
+      },
+    ];
+    this.setState({ tasks });
   };
 
   componentDidUpdate() {}
@@ -88,7 +108,11 @@ class ToDoDo extends Component {
             exact
             render={(props) =>
               this.state.loggedIn ? (
-                <ListView {...props} tasks={this.state.tasks} />
+                <ListView
+                  {...props}
+                  tasks={this.state.tasks}
+                  addTask={this.addTask}
+                />
               ) : (
                 <Redirect to="/login" />
               )
