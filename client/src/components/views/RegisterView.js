@@ -58,11 +58,12 @@ class RegisterView extends Component {
               .then((res) => res.json())
               .then((res) => {
                 let errors = { ...this.state.errors };
-                errors["loginExists"] = true;
+                errors["loginExists"] = false;
                 this.setState({
                   login: "",
                   password: "",
                 });
+                this.props.history.push("/");
               })
               .catch((err) => err);
           }
@@ -82,7 +83,6 @@ class RegisterView extends Component {
     let login = false;
     let password = false;
     let correct = false;
-    this.ayayaya;
     if (this.state.login.length > 3) {
       login = true;
     }
