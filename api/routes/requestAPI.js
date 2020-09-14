@@ -60,7 +60,6 @@ router.get("/tasks", function (req, res) {
 });
 
 router.post("/addUser", function (req, res) {
-  console.log("na add");
   let login = req.body.login;
   let password = req.body.password;
   connection.query(
@@ -69,6 +68,58 @@ router.post("/addUser", function (req, res) {
       "', '" +
       password +
       "')",
+    function (err, result) {
+      if (err) throw err;
+      res.send(JSON.stringify(result));
+    }
+  );
+});
+
+router.post("/addTask", function (req, res) {
+  let userId = req.body.userId;
+  let name = req.body.name;
+  let dueDate = req.body.dueDate;
+  let tags = req.body.tags;
+  connection.query(
+    "INSERT INTO tasks(userId, name, dueDate, finishDate, finished, tags) VALUES ('" +
+      userId +
+      "', '" +
+      name +
+      "', '" +
+      dueDate +
+      "', null, 0,'" +
+      tags +
+      "')",
+    function (err, result) {
+      if (err) throw err;
+      res.send(JSON.stringify(result));
+    }
+  );
+});
+
+router.post("/deleteTask", function (req, res) {
+  let taskId = req.body.taskId;
+  connection.query("DELETE FROM tasks WHERE id = " + taskId, function (
+    err,
+    result
+  ) {
+    if (err) throw err;
+    res.send(JSON.stringify(result));
+  });
+});
+
+router.post("/updateTask", function (req, res) {
+  let taskId = req.body.taskId;
+  let finished = req.body.finished;
+  let finishDate = req.body.finishDate;
+  connection.query(
+    "UPDATE tasks SET finished=" +
+      finished +
+      ", finishDate='" +
+      finishDate +
+      "' WHERE id='" +
+      taskId +
+      "'",
     function (err, result) {
       if (err) throw err;
       res.send(JSON.stringify(result));
