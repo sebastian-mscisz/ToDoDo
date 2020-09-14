@@ -35,7 +35,10 @@ class ToDoDo extends Component {
     fetch(`http://localhost:9000/requestAPI/tasks?userId=${id}`)
       .then((res) => res.json())
       .then((res) => {
-        this.setState({ tasks: res, tasksLoaded: true });
+        this.setState({
+          tasks: res,
+          tasksLoaded: true,
+        });
       })
       .catch((err) => err);
   };
@@ -49,24 +52,93 @@ class ToDoDo extends Component {
     });
   };
 
+  toggleFinishTask = (id, value) => {
+    const taskIndex = this.state.tasks.findIndex((task) => task.id == id);
+    let tasks = [...this.state.tasks];
+    let date;
+    let stateDate;
+    if (value === 0) {
+      date = null;
+      stateDate = null;
+    } else if (value === 1) {
+      date = new Date();
+      stateDate =
+        date.toISOString().slice(0, 11) +
+        (date.getHours() - 4) +
+        date.toISOString().slice(13);
+      date = date.toISOString();
+      console.log(stateDate);
+    }
+    tasks[taskIndex] = {
+      ...tasks[taskIndex],
+      finished: value,
+      finishDate: stateDate,
+    };
+    this.setState({
+      tasks,
+    });
+    fetch(`http://localhost:9000/requestAPI/updateTask`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        taskId: id,
+        finished: value,
+        finishDate: date,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {})
+      .catch((err) => err);
+  };
+
   addTask = (name, dueDate, tags) => {
-    let id;
-    if (this.state.tasks.length > 0) {
-      id = this.state.tasks[this.state.tasks.length - 1].id + 1;
-    } else id = 1;
-    let tasks = [
-      ...this.state.tasks,
-      {
-        dueDate: dueDate,
-        finishDate: null,
-        finished: 0,
-        id: id,
-        name: name,
-        tags: tags,
+    fetch(`http://localhost:9000/requestAPI/addTask`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
         userId: this.state.currentUser.id,
-      },
-    ];
-    this.setState({ tasks });
+        name: name,
+        dueDate: dueDate,
+        tags: tags.join(),
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        this.getTasks(this.state.currentUser.id);
+      })
+      .catch((err) => err);
+    // let id;
+    // if (this.state.tasks.length > 0) {
+    //   id = this.state.tasks[this.state.tasks.length - 1].id + 1;
+    // } else id = 1;
+    // let tasks = [
+    //   ...this.state.tasks,
+    //   {
+    //     dueDate: dueDate,
+    //     finishDate: null,
+    //     finished: 0,
+    //     id: id,
+    //     name: name,
+    //     tags: tags,
+    //     userId: this.state.currentUser.id,
+    //   },
+    // ];
+    // this.setState({ tasks });
+  };
+
+  deleteTask = (id) => {
+    fetch(`http://localhost:9000/requestAPI/deleteTask`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        taskId: id,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        this.getTasks(this.state.currentUser.id);
+      })
+      .catch((err) => err);
   };
 
   componentDidUpdate() {}
@@ -112,6 +184,8 @@ class ToDoDo extends Component {
                   {...props}
                   tasks={this.state.tasks}
                   addTask={this.addTask}
+                  deleteTask={this.deleteTask}
+                  toggleFinishTask={this.toggleFinishTask}
                 />
               ) : (
                 <Redirect to="/login" />

@@ -11,6 +11,7 @@ const newTask = (props) => {
           type="text"
           name="taskNameInput"
           id="taskId"
+          value={props.name}
         />
         <label className="form-check-label" htmlFor="dateDueId">
           Termin:
@@ -20,6 +21,7 @@ const newTask = (props) => {
           type="date"
           name="dateDueInput"
           id="dateDueId"
+          value={props.dueDate}
         />
         <label className="form-check-label" htmlFor="tagsId">
           Tags

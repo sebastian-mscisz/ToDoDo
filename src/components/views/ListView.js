@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import NewTask from "./NewTask";
-import TaskList from "./TaskList";
+import CurrentTaskList from "./CurrentTaskList";
+import FinishedTaskList from "./FinishedTaskList";
 
 class ListView extends Component {
   constructor(props) {
     super(props);
+    const date = new Date();
     this.state = {
       name: "",
-      dueDate: "",
+      dueDate: date.toISOString().slice(0, 10),
       tags: ["Tags", "Input"],
     };
   }
@@ -29,9 +31,10 @@ class ListView extends Component {
   handleAddTask = (e) => {
     e.preventDefault();
     this.props.addTask(this.state.name, this.state.dueDate, this.state.tags);
+    const date = new Date();
     this.setState({
       name: "",
-      dueDate: "",
+      dueDate: date.toISOString().slice(0, 10),
       tags: [],
     });
   };
@@ -58,10 +61,16 @@ class ListView extends Component {
   };
 
   render() {
+    const currentTasks = this.props.tasks.filter((task) => task.finished === 0);
+    const finishedTasks = this.props.tasks.filter(
+      (task) => task.finished === 1
+    );
     return (
       <>
         <p>Dodaj task'a</p>
         <NewTask
+          name={this.state.name}
+          dueDate={this.state.dueDate}
           tags={this.state.tags}
           removeTag={this.removeTag}
           inputKeyDown={this.inputKeyDown}
@@ -69,7 +78,16 @@ class ListView extends Component {
           handleAddTask={this.handleAddTask}
         />
         <p>Lista Tasków</p>
-        <TaskList tasks={this.props.tasks} />
+        <CurrentTaskList
+          tasks={currentTasks}
+          deleteTask={this.props.deleteTask}
+          toggleFinishTask={this.props.toggleFinishTask}
+        />
+        <FinishedTaskList
+          tasks={finishedTasks}
+          deleteTask={this.props.deleteTask}
+          toggleFinishTask={this.props.toggleFinishTask}
+        />
       </>
     );
   }
