@@ -20,6 +20,7 @@ class ToDoDo extends Component {
       currentUser: "",
       tasks: [],
       tasksLoaded: false,
+      guest: false,
     };
   }
 
@@ -61,13 +62,11 @@ class ToDoDo extends Component {
       date = null;
       stateDate = null;
     } else if (value === 1) {
+      stateDate = new Date();
       date = new Date();
-      stateDate =
-        date.toISOString().slice(0, 11) +
-        (date.getHours() - 4) +
-        date.toISOString().slice(13);
+      date.setHours(date.getHours() + 2);
       date = date.toISOString();
-      console.log(stateDate);
+      stateDate = stateDate.toISOString();
     }
     tasks[taskIndex] = {
       ...tasks[taskIndex],
@@ -107,23 +106,34 @@ class ToDoDo extends Component {
         this.getTasks(this.state.currentUser.id);
       })
       .catch((err) => err);
-    // let id;
-    // if (this.state.tasks.length > 0) {
-    //   id = this.state.tasks[this.state.tasks.length - 1].id + 1;
-    // } else id = 1;
-    // let tasks = [
-    //   ...this.state.tasks,
-    //   {
-    //     dueDate: dueDate,
-    //     finishDate: null,
-    //     finished: 0,
-    //     id: id,
-    //     name: name,
-    //     tags: tags,
-    //     userId: this.state.currentUser.id,
-    //   },
-    // ];
-    // this.setState({ tasks });
+  };
+
+  editTask = (id, name, dueDate, tags) => {
+    fetch(`http://localhost:9000/requestAPI/editTask`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        taskId: id,
+        name: name,
+        dueDate: dueDate,
+        tags: tags.join(),
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        const taskIndex = this.state.tasks.findIndex((task) => task.id == id);
+        let tasks = [...this.state.tasks];
+        tasks[taskIndex] = {
+          ...tasks[taskIndex],
+          name: name,
+          dueDate: dueDate,
+          tags: tags.join(),
+        };
+        this.setState({
+          tasks,
+        });
+      })
+      .catch((err) => err);
   };
 
   deleteTask = (id) => {
@@ -184,6 +194,7 @@ class ToDoDo extends Component {
                   {...props}
                   tasks={this.state.tasks}
                   addTask={this.addTask}
+                  editTask={this.editTask}
                   deleteTask={this.deleteTask}
                   toggleFinishTask={this.toggleFinishTask}
                 />

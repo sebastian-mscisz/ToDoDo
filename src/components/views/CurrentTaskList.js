@@ -4,15 +4,16 @@ const CurrentTaskList = (props) => {
   if (props.tasks != undefined) {
     taskList = props.tasks.map((item) => {
       let date = new Date(item.dueDate);
-      let dueDate = date.toISOString().slice(0, 10);
+      let dueDate =
+        date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
       return (
         <li key={item.id}>
-          {item.name} - {dueDate} - {item.tags}
+          {item.name} - Due date:{dueDate} - {item.tags}
           <button onClick={() => props.toggleFinishTask(item.id, 1)}>
             Complete!
           </button>
           <button onClick={() => props.deleteTask(item.id)}>Delete!</button>
-          <button>Edit!</button>
+          <button onClick={() => props.handleEditTask(item.id)}>Edit!</button>
         </li>
       );
     });

@@ -3,18 +3,35 @@ const FinishedTaskList = (props) => {
   let taskList;
   if (props.tasks != undefined) {
     taskList = props.tasks.map((item) => {
-      let date = new Date(item.finishDate);
-      let finishDate = date.toISOString().slice(0, 10);
+      let finishDate = new Date(item.finishDate);
+      let dueDate = new Date(item.dueDate);
       let finishTime =
-        date.getHours() + 2 + ":" + date.getMinutes() + ":" + date.getSeconds();
+        finishDate.getHours() +
+        ":" +
+        finishDate.getMinutes() +
+        ":" +
+        finishDate.getSeconds();
+      dueDate =
+        dueDate.getFullYear() +
+        "-" +
+        (dueDate.getMonth() + 1) +
+        "-" +
+        dueDate.getDate();
+      finishDate =
+        finishDate.getFullYear() +
+        "-" +
+        (finishDate.getMonth() + 1) +
+        "-" +
+        finishDate.getDate();
       return (
         <li key={item.id}>
-          {item.name} - {finishDate} - {finishTime} - {item.tags}
+          {item.name} - Due: {dueDate} / Finished: {finishDate} - {finishTime} -{" "}
+          {item.tags}
           <button onClick={() => props.toggleFinishTask(item.id, 0)}>
             Uncomplete!
           </button>
           <button onClick={() => props.deleteTask(item.id)}>Delete!</button>
-          <button>Edit!</button>
+          <button onClick={() => props.handleEditTask(item.id)}>Edit!</button>
         </li>
       );
     });
