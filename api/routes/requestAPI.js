@@ -108,6 +108,22 @@ router.post("/deleteTask", function (req, res) {
   });
 });
 
+router.post("/editTask", function (req, res) {
+  let taskId = req.body.taskId;
+  let name = req.body.name;
+  let dueDate = req.body.dueDate;
+  let tags = req.body.tags;
+  let query;
+  query = "name = '" + name + "', dueDate = '" + dueDate + "', tags = '" + tags;
+  connection.query(
+    "UPDATE tasks SET " + query + "' WHERE id='" + taskId + "'",
+    function (err, result) {
+      if (err) throw err;
+      res.send(JSON.stringify(result));
+    }
+  );
+});
+
 router.post("/updateTask", function (req, res) {
   let taskId = req.body.taskId;
   let finished = req.body.finished;
