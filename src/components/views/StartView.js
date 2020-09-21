@@ -20,6 +20,18 @@ const StartView = (props) => {
           <button>Zarejestruj się!</button>
         </NavLink>
       )}
+      {props.loggedIn || props.guestIn ? (
+        <NavLink to="/list">
+          <button>Do listy zadań!</button>
+        </NavLink>
+      ) : null}
+      <p>
+        Brak konta? &gt; Kontynuuj jako
+        <button onClick={props.handleGuestMode}>
+          <NavLink to="/list">Gość</NavLink>
+        </button>
+        ;)
+      </p>
     </>
   );
 };

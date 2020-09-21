@@ -21,6 +21,7 @@ class ToDoDo extends Component {
       tasks: [],
       tasksLoaded: false,
       guest: false,
+      guestTaskId: 0,
     };
   }
 
@@ -28,6 +29,8 @@ class ToDoDo extends Component {
     this.setState({
       currentUser: user,
       loggedIn: true,
+      guest: false,
+      guestTaskId: 0,
     });
     this.getTasks(user.id);
   };
@@ -50,6 +53,13 @@ class ToDoDo extends Component {
       currentUser: "",
       tasks: null,
       tasksLoaded: false,
+      guest: false,
+    });
+  };
+
+  handleGuestMode = () => {
+    this.setState({
+      guest: true,
     });
   };
 
@@ -76,79 +86,107 @@ class ToDoDo extends Component {
     this.setState({
       tasks,
     });
-    fetch(`http://localhost:9000/requestAPI/updateTask`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        taskId: id,
-        finished: value,
-        finishDate: date,
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {})
-      .catch((err) => err);
+    if (this.state.guest === false) {
+      fetch(`http://localhost:9000/requestAPI/updateTask`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          taskId: id,
+          finished: value,
+          finishDate: date,
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => {})
+        .catch((err) => err);
+    }
   };
 
   addTask = (name, dueDate, tags) => {
-    fetch(`http://localhost:9000/requestAPI/addTask`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        userId: this.state.currentUser.id,
-        name: name,
-        dueDate: dueDate,
-        tags: tags.join(),
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        this.getTasks(this.state.currentUser.id);
-      })
-      .catch((err) => err);
-  };
-
-  editTask = (id, name, dueDate, tags) => {
-    fetch(`http://localhost:9000/requestAPI/editTask`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        taskId: id,
-        name: name,
-        dueDate: dueDate,
-        tags: tags.join(),
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        const taskIndex = this.state.tasks.findIndex((task) => task.id == id);
-        let tasks = [...this.state.tasks];
-        tasks[taskIndex] = {
-          ...tasks[taskIndex],
+    if (this.state.guest === false) {
+      fetch(`http://localhost:9000/requestAPI/addTask`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: this.state.currentUser.id,
           name: name,
           dueDate: dueDate,
           tags: tags.join(),
-        };
-        this.setState({
-          tasks,
-        });
+        }),
       })
-      .catch((err) => err);
+        .then((res) => res.json())
+        .then((res) => {
+          this.getTasks(this.state.currentUser.id);
+        })
+        .catch((err) => err);
+    } else if (this.state.guest === true) {
+      let tasks = [
+        ...this.state.tasks,
+        {
+          id: this.state.guestTaskId,
+          name: name,
+          dueDate: dueDate,
+          finishDate: null,
+          finished: 0,
+          tags: tags.join(),
+        },
+      ];
+      this.setState({
+        tasks,
+        guestTaskId: this.state.guestTaskId + 1,
+      });
+    }
+  };
+
+  editTask = (id, name, dueDate, tags) => {
+    if (this.state.guest === false) {
+      fetch(`http://localhost:9000/requestAPI/editTask`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          taskId: id,
+          name: name,
+          dueDate: dueDate,
+          tags: tags.join(),
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => {})
+        .catch((err) => err);
+    }
+    const taskIndex = this.state.tasks.findIndex((task) => task.id == id);
+    let tasks = [...this.state.tasks];
+    tasks[taskIndex] = {
+      ...tasks[taskIndex],
+      name: name,
+      dueDate: dueDate,
+      tags: tags.join(),
+    };
+    this.setState({
+      tasks,
+    });
   };
 
   deleteTask = (id) => {
-    fetch(`http://localhost:9000/requestAPI/deleteTask`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        taskId: id,
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        this.getTasks(this.state.currentUser.id);
+    if (this.state.guest === false) {
+      fetch(`http://localhost:9000/requestAPI/deleteTask`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          taskId: id,
+        }),
       })
-      .catch((err) => err);
+        .then((res) => res.json())
+        .then((res) => {
+          this.getTasks(this.state.currentUser.id);
+        })
+        .catch((err) => err);
+    } else if (this.state.guest === true) {
+      let tasks = this.state.tasks.filter((task) => task.id != id);
+      this.setState({
+        tasks,
+      });
+    }
   };
 
   componentDidUpdate() {}
@@ -164,8 +202,10 @@ class ToDoDo extends Component {
             render={(props) => (
               <StartView
                 {...props}
+                handleGuestMode={this.handleGuestMode}
                 handleLogOut={this.handleLogOut}
                 loggedIn={this.state.loggedIn}
+                guestIn={this.state.guest}
               />
             )}
           />
@@ -189,7 +229,7 @@ class ToDoDo extends Component {
             path="/list"
             exact
             render={(props) =>
-              this.state.loggedIn ? (
+              this.state.loggedIn || this.state.guest ? (
                 <ListView
                   {...props}
                   tasks={this.state.tasks}
