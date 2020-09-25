@@ -3,15 +3,19 @@ import NewTask from "./NewTask";
 import EditTask from "./EditTask";
 import CurrentTaskList from "./CurrentTaskList";
 import FinishedTaskList from "./FinishedTaskList";
+import SortCurrentTasks from "./SortCurrentTasks";
+import SortFinishedTasks from "./SortFinishedTasks";
 
 class ListView extends Component {
   constructor(props) {
     super(props);
     const date = new Date();
     this.state = {
+      sortCurrent: "earliest",
+      sortFinished: "earliest",
       name: "",
       dueDate: date.toISOString().slice(0, 10),
-      tags: ["Tags", "Input"],
+      tags: [],
       edit: {
         state: false,
         id: null,
@@ -34,6 +38,41 @@ class ListView extends Component {
         finished: false,
       },
     });
+  };
+
+  sortTaskLists = (taskList, value) => {
+    switch (value) {
+      case "earliest":
+        taskList.sort((a, b) => a.dueDate.localeCompare(b.dueDate));
+        break;
+      case "latest":
+        taskList.sort((a, b) => b.dueDate.localeCompare(a.dueDate));
+        break;
+      case "earliestFinished":
+        taskList.sort((a, b) => a.finishDate.localeCompare(b.finishDate));
+        break;
+      case "latestFinished":
+        taskList.sort((a, b) => b.finishDate.localeCompare(a.finishDate));
+        break;
+      case "A-Z":
+        taskList.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case "Z-A":
+        taskList.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+    }
+  };
+
+  handleSortSelect = (e, type) => {
+    if (type === "current") {
+      this.setState({
+        sortCurrent: e.target.value,
+      });
+    } else if (type === "finished") {
+      this.setState({
+        sortFinished: e.target.value,
+      });
+    }
   };
 
   handleEditTask = (id) => {
@@ -155,10 +194,10 @@ class ListView extends Component {
   };
 
   render() {
-    const currentTasks = this.props.tasks.filter((task) => task.finished === 0);
-    const finishedTasks = this.props.tasks.filter(
-      (task) => task.finished === 1
-    );
+    let currentTasks = this.props.tasks.filter((task) => task.finished === 0);
+    let finishedTasks = this.props.tasks.filter((task) => task.finished === 1);
+    this.sortTaskLists(currentTasks, this.state.sortCurrent);
+    this.sortTaskLists(finishedTasks, this.state.sortFinished);
     let edit;
     if (this.state.edit.state === true) {
       edit = (
@@ -175,7 +214,6 @@ class ListView extends Component {
     return (
       <>
         {edit}
-        <p>Dodaj task'a</p>
         <NewTask
           name={this.state.name}
           dueDate={this.state.dueDate}
@@ -186,19 +224,19 @@ class ListView extends Component {
           handleAddTask={this.handleAddTask}
         />
         <p>Lista Tasków</p>
-        <p>Bieżące</p>
         <CurrentTaskList
           tasks={currentTasks}
           deleteTask={this.props.deleteTask}
           toggleFinishTask={this.props.toggleFinishTask}
           handleEditTask={this.handleEditTask}
+          handleSortSelect={this.handleSortSelect}
         />
-        <p>Skończone</p>
         <FinishedTaskList
           tasks={finishedTasks}
           deleteTask={this.props.deleteTask}
           toggleFinishTask={this.props.toggleFinishTask}
           handleEditTask={this.handleEditTask}
+          handleSortSelect={this.handleSortSelect}
         />
       </>
     );

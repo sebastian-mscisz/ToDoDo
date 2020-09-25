@@ -1,5 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import SortFinishedTasks from "./SortFinishedTasks";
+
 const FinishedTaskList = (props) => {
+  const [toggleVisibility, setToggleVisibility] = useState(false);
+
+  const handleToggleVisibility = () => {
+    setToggleVisibility((prevValue) => !prevValue);
+  };
+
   let taskList;
   if (props.tasks != undefined) {
     taskList = props.tasks.map((item) => {
@@ -36,7 +44,17 @@ const FinishedTaskList = (props) => {
       );
     });
   }
-  return <p>{taskList}</p>;
+  return (
+    <>
+      <p onClick={handleToggleVisibility}>Skończone</p>
+      {toggleVisibility && (
+        <div>
+          <SortFinishedTasks handleSortSelect={props.handleSortSelect} />
+          <p>{taskList}</p>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default FinishedTaskList;

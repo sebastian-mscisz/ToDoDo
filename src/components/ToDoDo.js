@@ -51,7 +51,7 @@ class ToDoDo extends Component {
     this.setState({
       loggedIn: false,
       currentUser: "",
-      tasks: null,
+      tasks: [],
       tasksLoaded: false,
       guest: false,
     });
@@ -59,8 +59,13 @@ class ToDoDo extends Component {
 
   handleGuestMode = () => {
     this.setState({
+      loggedIn: false,
+      currentUser: "",
+      tasks: [],
+      tasksLoaded: false,
       guest: true,
     });
+    <Redirect to="/list" />;
   };
 
   toggleFinishTask = (id, value) => {
@@ -74,8 +79,7 @@ class ToDoDo extends Component {
     } else if (value === 1) {
       stateDate = new Date();
       date = new Date();
-      date.setHours(date.getHours() + 2);
-      date = date.toISOString();
+      date = `${date.getFullYear()}.${date.getMonth()}.${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}`;
       stateDate = stateDate.toISOString();
     }
     tasks[taskIndex] = {

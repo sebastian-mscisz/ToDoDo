@@ -14,7 +14,6 @@ const StartView = (props) => {
           <button>Zaloguj się!</button>
         </NavLink>
       )}
-
       {props.loggedIn ? null : (
         <NavLink to="/register">
           <button>Zarejestruj się!</button>
@@ -25,13 +24,20 @@ const StartView = (props) => {
           <button>Do listy zadań!</button>
         </NavLink>
       ) : null}
-      <p>
-        Brak konta? &gt; Kontynuuj jako
-        <button onClick={props.handleGuestMode}>
-          <NavLink to="/list">Gość</NavLink>
-        </button>
-        ;)
-      </p>
+      {props.guestIn && (
+        <p>
+          Jesteś zalogowany jako <em>gość</em>
+        </p>
+      )}
+      {!props.guestIn && !props.loggedIn && (
+        <p>
+          Brak konta? &gt; Kontynuuj jako
+          <button onClick={props.handleGuestMode}>
+            <NavLink to="/list">Gość</NavLink>
+          </button>
+          ;)
+        </p>
+      )}
     </>
   );
 };
