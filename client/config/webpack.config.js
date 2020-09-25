@@ -27,6 +27,21 @@ module.exports = {
           },
         },
       },
+      { test: /\.css$/, use: [MiniCssExtractPlugin.loader, "css-loader"] },
+      {
+        test: /\.(sass|scss)$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.(png|jpg|svg|eot|woff|woff2|ttf)$/,
+        use: {
+          loader: "file-loader",
+          options: {
+            name: "[name]-[contentHash:6].[ext]",
+            outputPath: "assets/images",
+          },
+        },
+      },
     ],
   },
   devServer: {

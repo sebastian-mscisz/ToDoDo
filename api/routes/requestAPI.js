@@ -1,26 +1,57 @@
 var express = require("express");
-var connection = require("../connection.js");
+// var connection = require("../connection.js");
 var router = express.Router();
+var mysql = require("mysql");
 
-function handleDisconnect(connection) {
-  connection.on("error", function (err) {
-    if (!err.fatal) {
-      return;
-    }
+var connection = mysql.createPool({
+  host: "tododo.mysql.database.azure.com",
+  user: "artuks@tododo",
+  password: "Sebmsc1356",
+  database: "ToDoDoBase",
+  port: 3306,
+  ssl: true,
+  connectionLimit: 10,
+});
 
-    if (err.code !== "PROTOCOL_CONNECTION_LOST") {
-      throw err;
-    }
+// function handleDisconnect(connection) {
+//   connection.on("error", function (err) {
+//     console.log("kurwa błąd");
+//     if (!err.fatal) {
+//       return;
+//     }
 
-    console.log("Re-connecting lost connection: " + err.stack);
+//     if (err.code !== "ECONNRESET") {
+//       throw err;
+//     }
 
-    connection = mysql.createConnection(connection.config);
-    handleDisconnect(connection);
-    connection.connect();
-  });
-}
+//     console.log("Re-connecting lost connection: " + err.stack);
 
-handleDisconnect(connection);
+//     connection = new mysql.createConnection(connection.config);
+//     connection.connect();
+//     handleDisconnect(connection);
+//   });
+// }
+
+// connection.on("error", function (err) {
+//   console.log(err + " NYANIIIIIIIIIIII " + err.code);
+//   if (!err.fatal) {
+//     return;
+//   }
+
+//   // if (err.code !== "PROTOCOL_CONNECTION_LOST") {
+//   //   throw err;
+//   // }
+//   if (err.code !== "ECONNRESET") {
+//     throw err;
+//   }
+
+//   console.log("Re-connecting lost connection: " + err.stack);
+
+//   connection = new mysql.createConnection(connection.config);
+//   connection.connect();
+// });
+
+// handleDisconnect(connection);
 
 router.get("/userlist", function (req, res) {
   let login = req.query.login;
@@ -128,12 +159,13 @@ router.post("/updateTask", function (req, res) {
   let taskId = req.body.taskId;
   let finished = req.body.finished;
   let finishDate = req.body.finishDate;
+  if (finishDate != null) finishDate = `'${finishDate}'`;
   connection.query(
     "UPDATE tasks SET finished=" +
       finished +
-      ", finishDate='" +
+      ", finishDate=" +
       finishDate +
-      "' WHERE id='" +
+      " WHERE id='" +
       taskId +
       "'",
     function (err, result) {

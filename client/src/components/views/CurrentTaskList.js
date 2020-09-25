@@ -1,5 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import SortCurrentTasks from "./SortCurrentTasks";
+
 const CurrentTaskList = (props) => {
+  const [toggleVisibility, setToggleVisibility] = useState(false);
+
+  const handleToggleVisibility = () => {
+    setToggleVisibility((prevValue) => !prevValue);
+  };
+
   let taskList;
   if (props.tasks != undefined) {
     taskList = props.tasks.map((item) => {
@@ -18,7 +26,17 @@ const CurrentTaskList = (props) => {
       );
     });
   }
-  return <p>{taskList}</p>;
+  return (
+    <>
+      <p onClick={handleToggleVisibility}>Bieżące</p>
+      {toggleVisibility && (
+        <div>
+          <SortCurrentTasks handleSortSelect={props.handleSortSelect} />
+          <p>{taskList}</p>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default CurrentTaskList;
