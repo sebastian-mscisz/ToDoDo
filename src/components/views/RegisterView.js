@@ -14,9 +14,9 @@ class RegisterView extends Component {
     };
   }
   errorMessages = {
-    loginLengthMessage: <p>Login musi być dłuższy niż 3 litery</p>,
-    passwordLengthMessage: <p>Hasło musi być dłuższe niż 3 litery</p>,
-    loginExistsMessage: <p>Taki login już istnieje.</p>,
+    loginLengthMessage: "Login musi być dłuższy niż 3 litery",
+    passwordLengthMessage: "Hasło musi być dłuższe niż 3 litery",
+    loginExistsMessage: "Taki login już istnieje.",
   };
 
   handleInputChange = (e) => {
@@ -101,34 +101,48 @@ class RegisterView extends Component {
   render() {
     return (
       <>
-        <form onSubmit={this.handleRegisterSubmit}>
-          <label className="form-check-label" htmlFor="loginId">
-            Login:
-          </label>
+        <h1 className="forms__header">Zarejestruj się!</h1>
+        <form className="forms__form" onSubmit={this.handleRegisterSubmit}>
           <input
+            className="forms__input"
             onChange={this.handleInputChange}
             type="text"
             name="loginInput"
             id="loginId"
+            placeholder="Login"
             value={this.state.login}
           />
-          {this.state.errors.loginLength &&
-            this.errorMessages.loginLengthMessage}
-          {this.state.errors.loginExists &&
-            this.errorMessages.loginExistsMessage}
-          <label className="form-check-label" htmlFor="passwordId">
-            Hasło:
-          </label>
+          {this.state.errors.loginLength ? (
+            <p className="forms__error-text">
+              {this.errorMessages.loginLengthMessage}
+            </p>
+          ) : (
+            <p className="forms__error-text">&nbsp;</p>
+          )}
+          {this.state.errors.loginExists && (
+            <p className="forms__error-text">
+              {this.errorMessages.loginExistsMessage}
+            </p>
+          )}
           <input
+            className="forms__input"
             onChange={this.handleInputChange}
             type="password"
             name="passwordInput"
             id="passwordId"
+            placeholder="Hasło"
             value={this.state.password}
           />
-          {this.state.errors.passwordLength &&
-            this.errorMessages.passwordLengthMessage}
-          <button type="submit">Zarejestruj!</button>
+          {this.state.errors.passwordLength ? (
+            <p className="forms__error-text">
+              {this.errorMessages.passwordLengthMessage}
+            </p>
+          ) : (
+            <p className="forms__error-text">&nbsp;</p>
+          )}
+          <button className="forms__button" type="submit">
+            Zarejestruj!
+          </button>
         </form>
       </>
     );

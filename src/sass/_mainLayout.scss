@@ -1,0 +1,24 @@
+#root {
+  background-color: $primary;
+  background-image: linear-gradient(
+    225deg,
+    $primary 0%,
+    $secondary 70%,
+    $tertiary 100%
+  );
+
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.content {
+  padding-bottom: 2rem; /* Footer height */
+  margin: $margin-default-top $margin-default-right $margin-default-bottom
+    $margin-default-left;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+}

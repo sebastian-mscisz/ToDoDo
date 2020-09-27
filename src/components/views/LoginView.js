@@ -52,30 +52,30 @@ class LoginView extends Component {
   render() {
     return (
       <>
-        <p>login</p>
-        <form onSubmit={this.handleLoginSubmit}>
-          <label className="form-check-label" htmlFor="loginId">
-            Login:
-          </label>
+        <h1 className="forms__header">Zaloguj się!</h1>
+        <form className="forms__form" onSubmit={this.handleLoginSubmit}>
           <input
+            className="forms__input"
             onChange={this.handleInputChange}
             type="text"
             name="loginInput"
             id="loginId"
+            placeholder="Login"
             value={this.state.login}
           />
-          <label className="form-check-label" htmlFor="passwordId">
-            Hasło:
-          </label>
           <input
+            className="forms__input"
             onChange={this.handleInputChange}
             type="password"
             name="passwordInput"
             id="passwordId"
+            placeholder="Hasło"
             value={this.state.password}
           />
           {this.state.loginFail && this.loginFailMessage}
-          <button type="submit">Zaloguj!</button>
+          <button className="forms__button" type="submit">
+            Zaloguj!
+          </button>
         </form>
       </>
     );
