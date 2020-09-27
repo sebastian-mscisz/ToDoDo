@@ -4,6 +4,7 @@ import RegisterView from "./views/RegisterView";
 import LoginView from "./views/LoginView";
 import ListView from "./views/ListView";
 import Header from "./layouts/Header";
+import Footer from "./layouts/Footer";
 
 import {
   HashRouter as Router,
@@ -199,55 +200,58 @@ class ToDoDo extends Component {
     return (
       <Router>
         <Header />
-        <Switch>
-          <Route
-            path="/"
-            exact
-            render={(props) => (
-              <StartView
-                {...props}
-                handleGuestMode={this.handleGuestMode}
-                handleLogOut={this.handleLogOut}
-                loggedIn={this.state.loggedIn}
-                guestIn={this.state.guest}
-              />
-            )}
-          />
-          <Route
-            path="/login"
-            exact
-            render={(props) =>
-              this.state.tasksLoaded ? (
-                <Redirect to="/list" />
-              ) : (
-                <LoginView {...props} handleLogIn={this.handleLogIn} />
-              )
-            }
-          />
-          <Route
-            path="/register"
-            exact
-            render={(props) => <RegisterView {...props} />}
-          />
-          <Route
-            path="/list"
-            exact
-            render={(props) =>
-              this.state.loggedIn || this.state.guest ? (
-                <ListView
+        <div className="content">
+          <Switch>
+            <Route
+              path="/"
+              exact
+              render={(props) => (
+                <StartView
                   {...props}
-                  tasks={this.state.tasks}
-                  addTask={this.addTask}
-                  editTask={this.editTask}
-                  deleteTask={this.deleteTask}
-                  toggleFinishTask={this.toggleFinishTask}
+                  handleGuestMode={this.handleGuestMode}
+                  handleLogOut={this.handleLogOut}
+                  loggedIn={this.state.loggedIn}
+                  guestIn={this.state.guest}
                 />
-              ) : (
-                <Redirect to="/login" />
-              )
-            }
-          />
-        </Switch>
+              )}
+            />
+            <Route
+              path="/login"
+              exact
+              render={(props) =>
+                this.state.tasksLoaded ? (
+                  <Redirect to="/list" />
+                ) : (
+                  <LoginView {...props} handleLogIn={this.handleLogIn} />
+                )
+              }
+            />
+            <Route
+              path="/register"
+              exact
+              render={(props) => <RegisterView {...props} />}
+            />
+            <Route
+              path="/list"
+              exact
+              render={(props) =>
+                this.state.loggedIn || this.state.guest ? (
+                  <ListView
+                    {...props}
+                    tasks={this.state.tasks}
+                    addTask={this.addTask}
+                    editTask={this.editTask}
+                    deleteTask={this.deleteTask}
+                    toggleFinishTask={this.toggleFinishTask}
+                  />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
+            />
+          </Switch>
+        </div>
+        <Footer />
       </Router>
     );
   }

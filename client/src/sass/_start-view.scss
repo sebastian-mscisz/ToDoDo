@@ -1,0 +1,53 @@
+.start-view__header {
+  margin-top: 15%;
+  margin-bottom: 15%;
+  font-size: 2em;
+  text-align: center;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.start-view__buttons-group {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 15%;
+  margin-bottom: 5%;
+  padding-left: 5%;
+  padding-right: 5%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.start-view__button {
+  border-color: darken($tertiary, 15%);
+  background-color: $secondary;
+  margin: 3px 1px 3px 1px;
+  width: 85px;
+  height: 45px;
+  font-size: 0.8em;
+  font-weight: 600;
+  color: $text-color;
+  border-radius: 10px;
+  &--tasks {
+    width: 100%;
+  }
+}
+.start-view__link-button {
+  &--tasks {
+    width: 100%;
+  }
+}
+
+.start-view__separator {
+}
+
+.start-view__guest-info {
+  margin-top: 10px;
+  font-size: 0.8em;
+  font-style: italic;
+  text-align: center;
+  a {
+    color: $tertiary;
+  }
+}
