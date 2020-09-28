@@ -112,12 +112,10 @@ class RegisterView extends Component {
             placeholder="Login"
             value={this.state.login}
           />
-          {this.state.errors.loginLength ? (
+          {this.state.errors.loginLength && (
             <p className="forms__error-text">
               {this.errorMessages.loginLengthMessage}
             </p>
-          ) : (
-            <p className="forms__error-text">&nbsp;</p>
           )}
           {this.state.errors.loginExists && (
             <p className="forms__error-text">
@@ -133,12 +131,10 @@ class RegisterView extends Component {
             placeholder="Hasło"
             value={this.state.password}
           />
-          {this.state.errors.passwordLength ? (
+          {this.state.errors.passwordLength && (
             <p className="forms__error-text">
               {this.errorMessages.passwordLengthMessage}
             </p>
-          ) : (
-            <p className="forms__error-text">&nbsp;</p>
           )}
           <button className="forms__button" type="submit">
             Zarejestruj!

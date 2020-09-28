@@ -201,44 +201,52 @@ class ListView extends Component {
     let edit;
     if (this.state.edit.state === true) {
       edit = (
-        <EditTask
-          handleEditSubmit={this.handleEditSubmit}
-          editedTask={this.state.edit}
-          editInputKeyDown={this.editInputKeyDown}
-          handleInputChange={this.handleInputChange}
-          editRemoveTag={this.editRemoveTag}
-          cancelEdit={this.cancelEdit}
-        />
+        <div className="tasks tasks--edit">
+          <EditTask
+            handleEditSubmit={this.handleEditSubmit}
+            editedTask={this.state.edit}
+            editInputKeyDown={this.editInputKeyDown}
+            handleInputChange={this.handleInputChange}
+            editRemoveTag={this.editRemoveTag}
+            cancelEdit={this.cancelEdit}
+          />
+        </div>
       );
     }
     return (
-      <>
+      <div className="list-view">
+        <h1 className="list-view__header">Lista zadań</h1>
         {edit}
-        <NewTask
-          name={this.state.name}
-          dueDate={this.state.dueDate}
-          tags={this.state.tags}
-          removeTag={this.removeTag}
-          inputKeyDown={this.inputKeyDown}
-          handleInputChange={this.handleInputChange}
-          handleAddTask={this.handleAddTask}
-        />
-        <p>Lista Tasków</p>
-        <CurrentTaskList
-          tasks={currentTasks}
-          deleteTask={this.props.deleteTask}
-          toggleFinishTask={this.props.toggleFinishTask}
-          handleEditTask={this.handleEditTask}
-          handleSortSelect={this.handleSortSelect}
-        />
-        <FinishedTaskList
-          tasks={finishedTasks}
-          deleteTask={this.props.deleteTask}
-          toggleFinishTask={this.props.toggleFinishTask}
-          handleEditTask={this.handleEditTask}
-          handleSortSelect={this.handleSortSelect}
-        />
-      </>
+        <div className="tasks tasks--add">
+          <NewTask
+            name={this.state.name}
+            dueDate={this.state.dueDate}
+            tags={this.state.tags}
+            removeTag={this.removeTag}
+            inputKeyDown={this.inputKeyDown}
+            handleInputChange={this.handleInputChange}
+            handleAddTask={this.handleAddTask}
+          />
+        </div>
+        <div className="tasks tasks--current">
+          <CurrentTaskList
+            tasks={currentTasks}
+            deleteTask={this.props.deleteTask}
+            toggleFinishTask={this.props.toggleFinishTask}
+            handleEditTask={this.handleEditTask}
+            handleSortSelect={this.handleSortSelect}
+          />
+        </div>
+        <div className="tasks tasks--finished">
+          <FinishedTaskList
+            tasks={finishedTasks}
+            deleteTask={this.props.deleteTask}
+            toggleFinishTask={this.props.toggleFinishTask}
+            handleEditTask={this.handleEditTask}
+            handleSortSelect={this.handleSortSelect}
+          />
+        </div>
+      </div>
     );
   }
 }

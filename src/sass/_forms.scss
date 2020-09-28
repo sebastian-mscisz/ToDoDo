@@ -31,7 +31,7 @@
 }
 .forms__button {
   border-color: darken($tertiary, 20%);
-  background-color: $secondary;
+  background-color: lighten($primary, 5%);
   margin: 3px 1px 3px 1px;
   width: 85px;
   height: 35px;
@@ -41,9 +41,10 @@
   border-radius: 10px;
 }
 .forms__error-text {
-  height: 20px;
+  height: 18px;
+  padding: 5px 0px 5px 0px;
   font-style: italic;
-  color: darken(red, 25%);
+  color: lighten(orange, 15%);
   text-align: center;
   width: 100%;
 }

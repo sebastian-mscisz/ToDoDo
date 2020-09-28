@@ -3,8 +3,11 @@ import React from "react";
 const SortCurrentTasks = (props) => {
   return (
     <>
-      <label htmlFor="currentTasks">Sort</label>
+      <label className="tasks__sort__label" htmlFor="currentTasks">
+        Sortuj po:&nbsp;
+      </label>
       <select
+        className="tasks__sort__select"
         onChange={(e) => props.handleSortSelect(e, "current")}
         id="currentTasks"
         name="currentTasks"
