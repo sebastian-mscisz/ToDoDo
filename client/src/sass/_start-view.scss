@@ -15,13 +15,13 @@
   margin-bottom: 5%;
   padding-left: 5%;
   padding-right: 5%;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 
 .start-view__button {
   border-color: darken($tertiary, 15%);
-  background-color: $secondary;
+  background-color: lighten($primary, 5%);
   margin: 3px 1px 3px 1px;
   width: 85px;
   height: 45px;

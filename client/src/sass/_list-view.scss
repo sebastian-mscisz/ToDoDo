@@ -1,0 +1,12 @@
+.list-view {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.list-view__header {
+  margin: 5px 0 5px 0;
+  width: 100%;
+  text-align: center;
+  font-size: 1.4em;
+}

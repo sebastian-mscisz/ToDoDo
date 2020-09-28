@@ -1,0 +1,64 @@
+.input-tag {
+  border-radius: 2px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.input-tag__input {
+  border: none;
+  height: 20px;
+  width: 100%;
+  color: $text-color;
+  background-color: inherit;
+  &::placeholder {
+    color: darken($text-color, 20%);
+  }
+}
+
+.input-tag__tags {
+  border: 1px solid lighten($primary, 15%);
+  display: inline-flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.input-tag__tags li {
+  align-items: center;
+  background: lighten($primary, 25%);
+  border-radius: 2px;
+  color: white;
+  display: flex;
+  font-weight: 300;
+  list-style: none;
+  margin: 2px 2px 2px 2px;
+  padding: 2px 2px;
+}
+
+.input-tag__tags li button {
+  align-items: center;
+  appearance: none;
+  background: #333333;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 12px;
+  height: 11px;
+  justify-content: center;
+  line-height: 0;
+  margin-left: 4px;
+  padding: 0;
+  transform: rotate(45deg);
+  width: 11px;
+}
+
+.input-tag__tags li.input-tag__tags__input {
+  background: none;
+  flex-grow: 1;
+  width: 20%;
+  padding: 0;
+}

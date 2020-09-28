@@ -2,56 +2,83 @@ import React from "react";
 const EditTask = (props) => {
   return (
     <>
-      <div style={{ border: "1px solid black" }}>
-        <form onSubmit={props.handleEditSubmit}>
-          <label className="form-check-label" htmlFor="editTaskId">
+      <h2 className="tasks__header">Edytuj zadanie</h2>
+      <form
+        id="edit-task"
+        className="tasks__form"
+        onSubmit={props.handleEditSubmit}
+      >
+        <div className="tasks__row">
+          <label className="tasks__label" htmlFor="editDateId">
             Nazwa:
           </label>
           <input
+            className="tasks__input"
             onChange={props.handleInputChange}
             type="text"
             name="editTaskNameInput"
             id="editTaskId"
             value={props.editedTask.name}
           />
-          <label className="form-check-label" htmlFor="editDateId">
+        </div>
+        <div className="tasks__row">
+          <label className="tasks__label" htmlFor="editDateId">
             Termin:
           </label>
           <input
+            className="tasks__input"
             onChange={props.handleInputChange}
             type="date"
             name="editTaskDateInput"
             id="editDateId"
             value={props.editedTask.date}
           />
-          <label className="form-check-label" htmlFor="tagsId">
-            Tags
-          </label>
-
-          <button type="submit">Zatwierdź!</button>
-        </form>
-        <button onClick={props.cancelEdit}>Anuluj!</button>
+        </div>
+      </form>
+      <div className="tasks__row">
         <div className="input-tag">
           <ul className="input-tag__tags">
-            {props.editedTask.tags.map((tag, i) => (
-              <li key={tag}>
-                {tag}
-                <button
-                  type="button"
-                  onClick={() => {
-                    props.editRemoveTag(i);
-                  }}
-                >
-                  +
-                </button>
-              </li>
-            ))}
+            {props.editedTask.tags.map((tag, i) => {
+              if (tag != "") {
+                return (
+                  <li key={tag}>
+                    {tag}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        props.editRemoveTag(i);
+                      }}
+                    >
+                      +
+                    </button>
+                  </li>
+                );
+              }
+            })}
             <li className="input-tag__tags__input">
-              <input type="text" onKeyDown={props.editInputKeyDown} />
+              <input
+                className="input-tag__input"
+                type="text"
+                placeholder="Tagi..."
+                onKeyDown={props.editInputKeyDown}
+              />
             </li>
           </ul>
         </div>
       </div>
+      <button
+        className="tasks__button tasks__button--edit"
+        type="submit"
+        form="edit-task"
+      >
+        Zatwierdź!
+      </button>
+      <button
+        className="tasks__button tasks__button--edit"
+        onClick={props.cancelEdit}
+      >
+        Anuluj!
+      </button>
     </>
   );
 };

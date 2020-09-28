@@ -72,7 +72,9 @@ class LoginView extends Component {
             placeholder="Hasło"
             value={this.state.password}
           />
-          {this.state.loginFail && this.loginFailMessage}
+          {this.state.loginFail && (
+            <p className="forms__error-text">{this.loginFailMessage}</p>
+          )}
           <button className="forms__button" type="submit">
             Zaloguj!
           </button>

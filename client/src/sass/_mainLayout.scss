@@ -6,7 +6,6 @@
     $secondary 70%,
     $tertiary 100%
   );
-
   position: relative;
   min-height: 100vh;
   overflow: hidden;
@@ -21,4 +20,12 @@
   justify-content: center;
   align-items: center;
   min-height: 100%;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #fff !important;
 }
