@@ -1,9 +1,9 @@
 #root {
-  background-color: $primary;
   background-image: linear-gradient(
-    225deg,
-    $primary 0%,
-    $secondary 70%,
+    180deg,
+    $tertiary 0%,
+    $background 15%,
+    $background 85%,
     $tertiary 100%
   );
   position: relative;

@@ -5,8 +5,8 @@
   text-align: center;
 }
 .header__navbutton {
-  border-color: darken($tertiary, 20%);
-  background-color: inherit;
+  border-color: lighten($tertiary, 10%);
+  background-color: $secondary;
   margin-left: 1px;
   margin-right: 1px;
   width: 40px;

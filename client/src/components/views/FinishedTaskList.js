@@ -13,7 +13,11 @@ const FinishedTaskList = (props) => {
     taskList = props.tasks.map((item) => {
       let tags = item.tags.split(",").map((tag) => {
         if (tag != "")
-          return <span className="tasks__item__tags__tag">#{tag}</span>;
+          return (
+            <span className="tasks__item__tags__tag tasks__item__tags__tag--finished">
+              #{tag}
+            </span>
+          );
       });
       let finishDate = new Date(item.finishDate);
       let dueDate = new Date(item.dueDate);
@@ -31,7 +35,7 @@ const FinishedTaskList = (props) => {
         "-" +
         finishDate.getFullYear();
       return (
-        <li className="tasks__item" key={item.id}>
+        <li className="tasks__item tasks__item--finished" key={item.id}>
           <div className="tasks__row">
             <div className="tasks__item__name">
               <p className="tasks__item__paragraph">
@@ -52,19 +56,19 @@ const FinishedTaskList = (props) => {
             <div className="tasks__item__tags">{tags}</div>
             <div className="tasks__item__buttons">
               <button
-                className="tasks__icon"
+                className="tasks__icon tasks__icon--finished"
                 onClick={() => props.toggleFinishTask(item.id, 0)}
               >
                 <span className="fas fa-undo"></span>
               </button>
               <button
-                className="tasks__icon"
+                className="tasks__icon tasks__icon--finished"
                 onClick={() => props.deleteTask(item.id)}
               >
                 <span className="fas fa-trash-alt"></span>
               </button>
               <button
-                className="tasks__icon"
+                className="tasks__icon tasks__icon--finished"
                 onClick={() => props.handleEditTask(item.id)}
               >
                 <span className="fas fa-edit"></span>
