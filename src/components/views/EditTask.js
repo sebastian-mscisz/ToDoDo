@@ -66,19 +66,21 @@ const EditTask = (props) => {
           </ul>
         </div>
       </div>
-      <button
-        className="tasks__button tasks__button--edit"
-        type="submit"
-        form="edit-task"
-      >
-        Zatwierdź!
-      </button>
-      <button
-        className="tasks__button tasks__button--edit"
-        onClick={props.cancelEdit}
-      >
-        Anuluj!
-      </button>
+      <div className="tasks__row">
+        <button
+          className="tasks__button tasks__button--edit"
+          type="submit"
+          form="edit-task"
+        >
+          Zatwierdź!
+        </button>
+        <button
+          className="tasks__button tasks__button--edit"
+          onClick={props.cancelEdit}
+        >
+          Anuluj!
+        </button>
+      </div>
     </>
   );
 };

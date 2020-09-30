@@ -13,7 +13,7 @@ const newTask = (props) => {
         Nowe zadanie <span className="fas fa-plus"></span>
       </h2>
       {toggleVisibility && (
-        <>
+        <div className="tasks__container">
           <form
             id="new-task"
             className="tasks__form"
@@ -74,7 +74,7 @@ const newTask = (props) => {
           <button className="tasks__button" type="submit" form="new-task">
             Dodaj!
           </button>
-        </>
+        </div>
       )}
     </>
   );

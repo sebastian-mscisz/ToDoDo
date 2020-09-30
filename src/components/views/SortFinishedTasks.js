@@ -7,7 +7,7 @@ const SortFinishedTasks = (props) => {
         Sortuj po:&nbsp;
       </label>
       <select
-        className="tasks__sort__select"
+        className="tasks__sort__select tasks__sort__select--finished"
         onChange={(e) => props.handleSortSelect(e, "finished")}
         id="finishedTasks"
         name="finishedTasks"
