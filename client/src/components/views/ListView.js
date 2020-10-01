@@ -3,8 +3,7 @@ import NewTask from "./NewTask";
 import EditTask from "./EditTask";
 import CurrentTaskList from "./CurrentTaskList";
 import FinishedTaskList from "./FinishedTaskList";
-import SortCurrentTasks from "./SortCurrentTasks";
-import SortFinishedTasks from "./SortFinishedTasks";
+import { CSSTransition } from "react-transition-group";
 
 class ListView extends Component {
   constructor(props) {
@@ -198,25 +197,28 @@ class ListView extends Component {
     let finishedTasks = this.props.tasks.filter((task) => task.finished === 1);
     this.sortTaskLists(currentTasks, this.state.sortCurrent);
     this.sortTaskLists(finishedTasks, this.state.sortFinished);
-    let edit;
-    if (this.state.edit.state === true) {
-      edit = (
-        <div className="tasks tasks--edit">
-          <EditTask
-            handleEditSubmit={this.handleEditSubmit}
-            editedTask={this.state.edit}
-            editInputKeyDown={this.editInputKeyDown}
-            handleInputChange={this.handleInputChange}
-            editRemoveTag={this.editRemoveTag}
-            cancelEdit={this.cancelEdit}
-          />
-        </div>
-      );
-    }
     return (
       <div className="list-view">
         <h1 className="list-view__header">Lista zadań</h1>
-        {edit}
+        {this.state.edit.state && (
+          <CSSTransition
+            in={this.state.edit.state}
+            timeout={300}
+            classNames="tasks__visibility"
+            appear
+          >
+            <div className="tasks tasks--edit">
+              <EditTask
+                handleEditSubmit={this.handleEditSubmit}
+                editedTask={this.state.edit}
+                editInputKeyDown={this.editInputKeyDown}
+                handleInputChange={this.handleInputChange}
+                editRemoveTag={this.editRemoveTag}
+                cancelEdit={this.cancelEdit}
+              />
+            </div>
+          </CSSTransition>
+        )}
         <div className="tasks tasks--add">
           <NewTask
             name={this.state.name}

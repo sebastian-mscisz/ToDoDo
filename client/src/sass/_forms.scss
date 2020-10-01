@@ -32,7 +32,7 @@
 }
 .forms__button {
   border-color: lighten($tertiary, 10%);
-  background-color: $secondary;
+  background-color: darken($secondary, 5%);
   margin: 3px 1px 3px 1px;
   width: 85px;
   height: 35px;

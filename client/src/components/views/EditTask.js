@@ -37,11 +37,14 @@ const EditTask = (props) => {
       </form>
       <div className="tasks__row">
         <div className="input-tag">
-          <ul className="input-tag__tags">
+          <ul className="input-tag__tags input-tag__tags--edit">
             {props.editedTask.tags.map((tag, i) => {
               if (tag != "") {
                 return (
-                  <li key={tag}>
+                  <li
+                    className="input-tag__tags__tag input-tag__tags__tag--edit"
+                    key={tag}
+                  >
                     {tag}
                     <button
                       type="button"

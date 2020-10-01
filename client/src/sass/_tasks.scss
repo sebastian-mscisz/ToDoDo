@@ -4,6 +4,29 @@
   text-align: center;
   border-radius: 10px;
   border: 2px solid black;
+  &__visibility {
+    &-enter {
+      opacity: 0;
+    }
+    &-enter-active {
+      opacity: 1;
+      transition: opacity 300ms;
+    }
+    &-appear {
+      opacity: 0;
+    }
+    &-appear-active {
+      opacity: 1;
+      transition: opacity 300ms;
+    }
+    &-exit {
+      opacity: 1;
+    }
+    &-exit-active {
+      opacity: 0;
+      transition: opacity 300ms;
+    }
+  }
   &--add {
     display: flex;
     flex-wrap: wrap;
@@ -66,7 +89,9 @@
   color: $text-color;
   border-radius: 10px;
   &--edit {
-    width: 80px;
+    width: 85px;
+    border-color: darken($primary, 30%);
+    background-color: darken($primary, 20%);
   }
 }
 .tasks__container {
@@ -148,7 +173,7 @@
     display: inline-flex;
     flex-wrap: wrap;
     width: 100%;
-    padding: 2px;
+    padding: 4px;
     flex-grow: 1;
     &__tag {
       align-items: center;
@@ -178,6 +203,7 @@
   }
   &__paragraph {
     font-size: 0.9em;
+    padding: 1px;
     &--finish-date {
       font-size: 0.6em;
       font-style: italic;
