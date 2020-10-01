@@ -1,11 +1,14 @@
 .start-view__header {
-  margin-top: 15%;
-  margin-bottom: 15%;
+  margin-top: 5%;
   font-size: 2em;
   text-align: center;
   flex-grow: 1;
   width: 100%;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.start-view__logo {
+  height: 150px;
 }
 
 .start-view__buttons-group {
@@ -21,8 +24,8 @@
 }
 
 .start-view__button {
-  border-color: darken($tertiary, 10%);
-  background-color: $secondary;
+  border-color: lighten($tertiary, 10%);
+  background-color: darken($secondary, 5%);
   margin: 3px 1px 3px 1px;
   width: 85px;
   height: 45px;
@@ -49,6 +52,6 @@
   font-style: italic;
   text-align: center;
   a {
-    color: $tertiary;
+    color: darken($text-color, 20%);
   }
 }

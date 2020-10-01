@@ -1,11 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import dodoImg from "../assets/dodo.png";
 
 const StartView = (props) => {
   return (
     <>
       <h1 className="start-view__header">ToDoDo !</h1>
-      <img className="start-view__logo" alt="tu bedzie obraz" />
+      <img className="start-view__logo" alt="Dodo" src={dodoImg} />
       <div className="start-view__buttons-group">
         {props.loggedIn || props.guestIn ? (
           <NavLink

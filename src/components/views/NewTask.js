@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { CSSTransition } from "react-transition-group";
 
 const newTask = (props) => {
   const [toggleVisibility, setToggleVisibility] = useState(false);
@@ -12,7 +13,12 @@ const newTask = (props) => {
       <h2 className="tasks__header" onClick={handleToggleVisibility}>
         Nowe zadanie <span className="fas fa-plus"></span>
       </h2>
-      {toggleVisibility && (
+      <CSSTransition
+        in={toggleVisibility}
+        timeout={300}
+        classNames="tasks__visibility"
+        unmountOnExit
+      >
         <div className="tasks__container">
           <form
             id="new-task"
@@ -46,9 +52,12 @@ const newTask = (props) => {
           </form>
           <div className="tasks__row">
             <div className="input-tag">
-              <ul className="input-tag__tags">
+              <ul className="input-tag__tags input-tag__tags--add">
                 {props.tags.map((tag, i) => (
-                  <li key={tag}>
+                  <li
+                    className="input-tag__tags__tag input-tag__tags__tag--add"
+                    key={tag}
+                  >
                     {tag}
                     <button
                       type="button"
@@ -75,7 +84,7 @@ const newTask = (props) => {
             Dodaj!
           </button>
         </div>
-      )}
+      </CSSTransition>
     </>
   );
 };
