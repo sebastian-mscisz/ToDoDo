@@ -13,13 +13,15 @@
 
 .content {
   padding-bottom: 2rem; /* Footer height */
-  margin: $margin-default-top $margin-default-right $margin-default-bottom
-    $margin-default-left;
+  margin: 5% 10% 5% 10%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   min-height: 100%;
+  @include for-size(tablet) {
+    padding-bottom: 3rem; /* Footer height */
+  }
 }
 
 input:-webkit-autofill,

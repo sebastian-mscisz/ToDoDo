@@ -5,22 +5,34 @@
   flex-grow: 1;
   width: 100%;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  @include for-size(tablet) {
+    padding: 50px 15% 5px 15%;
+    font-size: 3em;
+  }
 }
 
 .start-view__logo {
+  margin-top: 5%;
   height: 150px;
+  @include for-size(tablet) {
+    height: 200px;
+  }
 }
 
 .start-view__buttons-group {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  margin-top: 15%;
+  margin-top: 10%;
   margin-bottom: 5%;
   padding-left: 5%;
   padding-right: 5%;
-  justify-content: space-around;
   align-items: center;
+  justify-content: space-around;
+  @include for-size(tablet) {
+    justify-content: center;
+    margin-top: 5%;
+  }
 }
 
 .start-view__button {
@@ -33,6 +45,13 @@
   font-weight: 600;
   color: $text-color;
   border-radius: 10px;
+  @include for-size(tablet) {
+    margin: 15px 0;
+    width: 115px;
+    height: 55px;
+    font-size: 1.1em;
+    border-width: 3px;
+  }
   &--tasks {
     width: 100%;
   }
@@ -44,6 +63,10 @@
 }
 
 .start-view__separator {
+  @include for-size(tablet) {
+    font-size: 1.3em;
+    margin: 0 25px;
+  }
 }
 
 .start-view__guest-info {
@@ -53,5 +76,8 @@
   text-align: center;
   a {
     color: darken($text-color, 20%);
+  }
+  @include for-size(tablet) {
+    font-size: 1.1em;
   }
 }

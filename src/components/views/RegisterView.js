@@ -11,6 +11,7 @@ class RegisterView extends Component {
         passwordLength: false,
         loginExists: false,
       },
+      connectionFailMessage: false,
     };
   }
   errorMessages = {
@@ -68,7 +69,11 @@ class RegisterView extends Component {
               .catch((err) => err);
           }
         })
-        .catch((err) => err);
+        .catch((err) =>
+          this.setState({
+            connectionFailMessage: true,
+          })
+        );
     } else {
       let errors = { ...this.state.errors };
       errors["loginLength"] = !validation.login;
@@ -139,6 +144,12 @@ class RegisterView extends Component {
           <button className="forms__button" type="submit">
             Zarejestruj!
           </button>
+          {this.state.connectionFailMessage && (
+            <p className="forms__error-text">
+              Oops, wygląda na to, że nie mam połączenia z bazą danych, spróbuj
+              trybu gościa ;)
+            </p>
+          )}
         </form>
       </>
     );

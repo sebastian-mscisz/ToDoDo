@@ -14,6 +14,10 @@
   &::placeholder {
     color: darken($text-color, 20%);
   }
+  @include for-size(tablet) {
+    font-size: 0.9em;
+    padding: 10px;
+  }
 }
 
 .input-tag__tags {
@@ -39,6 +43,10 @@
   font-weight: 300;
   list-style: none;
   margin: 2px;
+  @include for-size(tablet) {
+    font-size: 1.3em;
+    padding: 10px;
+  }
 }
 
 .input-tag__tags__tag {
@@ -60,13 +68,19 @@
   cursor: pointer;
   display: inline-flex;
   font-size: 12px;
+  width: 12px;
   height: 12px;
   justify-content: center;
   line-height: 0;
   margin-left: 4px;
   padding: 0;
   transform: rotate(45deg);
-  width: 12px;
+  @include for-size(tablet) {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    margin-left: 6px;
+  }
 }
 
 .input-tag__tags li.input-tag__tags__input {

@@ -7,6 +7,7 @@ class LoginView extends Component {
       login: "",
       password: "",
       loginFail: false,
+      connectionFailMessage: false,
     };
   }
 
@@ -47,7 +48,11 @@ class LoginView extends Component {
           });
         }
       })
-      .catch((err) => err);
+      .catch((err) =>
+        this.setState({
+          connectionFailMessage: true,
+        })
+      );
   };
   render() {
     return (
@@ -78,6 +83,12 @@ class LoginView extends Component {
           <button className="forms__button" type="submit">
             Zaloguj!
           </button>
+          {this.state.connectionFailMessage && (
+            <p className="forms__error-text">
+              Oops, wygląda na to, że nie mam połączenia z bazą danych, spróbuj
+              trybu gościa ;)
+            </p>
+          )}
         </form>
       </>
     );

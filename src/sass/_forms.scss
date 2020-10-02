@@ -6,11 +6,18 @@
   flex-grow: 1;
   width: 100%;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  @include for-size(tablet) {
+    padding: 50px 15% 5px 15%;
+    font-size: 3em;
+    margin-top: 5%;
+    margin-bottom: 10%;
+  }
 }
 
 .forms__form {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
   align-items: center;
   justify-content: center;
 }
@@ -29,17 +36,29 @@
     font-size: 1.1em;
   }
   border-radius: 10px;
+  @include for-size(tablet) {
+    height: 50px;
+    border-width: 3px;
+    font-size: 1.3em;
+  }
 }
 .forms__button {
   border-color: lighten($tertiary, 10%);
   background-color: darken($secondary, 5%);
-  margin: 3px 1px 3px 1px;
+  margin: 3px 0;
   width: 85px;
   height: 35px;
   font-size: 0.8em;
   font-weight: 600;
   color: $text-color;
   border-radius: 10px;
+  @include for-size(tablet) {
+    margin: 15px 0;
+    width: 115px;
+    height: 55px;
+    font-size: 1.1em;
+    border-width: 3px;
+  }
 }
 .forms__error-text {
   height: 18px;
