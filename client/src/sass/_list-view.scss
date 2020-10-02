@@ -9,4 +9,8 @@
   width: 100%;
   text-align: center;
   font-size: 1.4em;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  @include for-size(tablet) {
+    font-size: 3em;
+  }
 }

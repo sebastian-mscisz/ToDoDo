@@ -4,12 +4,16 @@ var router = express.Router();
 var mysql = require("mysql");
 
 var connection = mysql.createPool({
-  host: "tododo.mysql.database.azure.com",
-  user: "artuks@tododo",
-  password: "Sebmsc1356",
-  database: "ToDoDoBase",
-  port: 3306,
-  ssl: true,
+  host: "sql7.freesqldatabase.com",
+  user: "sql7363789",
+  password: "XbQlHmSehp",
+  database: "sql7363789",
+  // host: "tododo.mysql.database.azure.com",
+  // user: "artuks@tododo",
+  // password: "Sebmsc1356",
+  // database: "ToDoDoBase",
+  // port: 3306,
+  // ssl: true,
   connectionLimit: 10,
 });
 

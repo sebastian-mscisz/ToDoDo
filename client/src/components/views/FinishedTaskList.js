@@ -43,7 +43,7 @@ const FinishedTaskList = (props) => {
           unmountOnExit
           appear
         >
-          <li className="tasks__item tasks__item--finished" key={item.id}>
+          <li key={item.id} className="tasks__item tasks__item--finished">
             <div className="tasks__row">
               <div className="tasks__item__name">
                 <p className="tasks__item__paragraph">
@@ -55,7 +55,8 @@ const FinishedTaskList = (props) => {
               </div>
               <div className="tasks__item__date">
                 <p className="tasks__item__paragraph">
-                  <span className="fas fa-clock"></span>&nbsp;
+                  <span className="fas fa-clock" />
+                  &nbsp;
                   {dueDate}
                 </p>
               </div>
@@ -67,19 +68,19 @@ const FinishedTaskList = (props) => {
                   className="tasks__icon tasks__icon--finished"
                   onClick={() => props.toggleFinishTask(item.id, 0)}
                 >
-                  <span className="fas fa-undo"></span>
+                  <span className="fas fa-undo" />
                 </button>
                 <button
                   className="tasks__icon tasks__icon--finished"
                   onClick={() => props.deleteTask(item.id)}
                 >
-                  <span className="fas fa-trash-alt"></span>
+                  <span className="fas fa-trash-alt" />
                 </button>
                 <button
                   className="tasks__icon tasks__icon--finished"
                   onClick={() => props.handleEditTask(item.id)}
                 >
-                  <span className="fas fa-edit"></span>
+                  <span className="fas fa-edit" />
                 </button>
               </div>
             </div>

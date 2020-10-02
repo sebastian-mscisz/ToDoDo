@@ -31,7 +31,7 @@ const CurrentTaskList = (props) => {
           unmountOnExit
           appear
         >
-          <li className="tasks__item tasks__item--current" key={item.id}>
+          <li key={item.id} className="tasks__item tasks__item--current">
             <div className="tasks__row">
               <div className="tasks__item__name">
                 <p className="tasks__item__paragraph">

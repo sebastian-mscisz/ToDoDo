@@ -20,10 +20,7 @@ const StartView = (props) => {
         ) : null}
         {props.loggedIn ? (
           <NavLink className="start-view__link-button" to="/">
-            <button
-              className="start-view__button--logout"
-              onClick={props.handleLogOut}
-            >
+            <button className="start-view__button" onClick={props.handleLogOut}>
               Wyloguj się!
             </button>
           </NavLink>
