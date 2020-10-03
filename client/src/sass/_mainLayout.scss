@@ -22,6 +22,9 @@
   @include for-size(tablet) {
     padding-bottom: 3rem; /* Footer height */
   }
+  @include for-size(laptop) {
+    margin-top: 0; /* Footer height */
+  }
 }
 
 input:-webkit-autofill,

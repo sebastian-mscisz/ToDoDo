@@ -12,6 +12,11 @@
     margin-top: 5%;
     margin-bottom: 10%;
   }
+  @include for-size(laptop) {
+    font-size: 2.5em;
+    padding: 5px 15% 5px 15%;
+    margin-bottom: 5%;
+  }
 }
 
 .forms__form {
@@ -41,6 +46,12 @@
     border-width: 3px;
     font-size: 1.3em;
   }
+  @include for-size(laptop) {
+    margin-right: 15%;
+    margin-left: 15%;
+    height: 35px;
+    font-size: 1em;
+  }
 }
 .forms__button {
   border-color: lighten($tertiary, 10%);
@@ -58,6 +69,11 @@
     height: 55px;
     font-size: 1.1em;
     border-width: 3px;
+  }
+  @include for-size(laptop) {
+    width: 95px;
+    height: 45px;
+    font-size: 0.9em;
   }
 }
 .forms__error-text {
