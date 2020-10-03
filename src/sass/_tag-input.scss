@@ -18,6 +18,9 @@
     font-size: 0.9em;
     padding: 10px;
   }
+  @include for-size(laptop) {
+    padding: 5px;
+  }
 }
 
 .input-tag__tags {
@@ -46,6 +49,10 @@
   @include for-size(tablet) {
     font-size: 1.3em;
     padding: 10px;
+  }
+  @include for-size(laptop) {
+    font-size: 1em;
+    padding: 7px;
   }
 }
 
@@ -80,6 +87,12 @@
     width: 18px;
     height: 18px;
     margin-left: 6px;
+  }
+  @include for-size(laptop) {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    margin-left: 4px;
   }
 }
 

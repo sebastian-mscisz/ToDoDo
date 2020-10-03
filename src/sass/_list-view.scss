@@ -3,6 +3,9 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  @include for-size(laptop) {
+    margin: 0 10%;
+  }
 }
 .list-view__header {
   margin: 5px 0 5px 0;
@@ -12,5 +15,9 @@
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   @include for-size(tablet) {
     font-size: 3em;
+  }
+  @include for-size(laptop) {
+    font-size: 2.5em;
+    padding: 5% 15% 5px 15%;
   }
 }

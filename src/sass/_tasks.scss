@@ -57,6 +57,9 @@
   @include for-size(tablet) {
     font-size: 1.8em;
   }
+  @include for-size(laptop) {
+    font-size: 1.4em;
+  }
 }
 .tasks__form {
   display: flex;
@@ -80,12 +83,19 @@
     font-size: 1.3em;
     padding: 10px;
   }
+  @include for-size(laptop) {
+    font-size: 1em;
+    padding: 7px;
+  }
 }
 .tasks__label {
   padding-right: 5px;
   color: $text-color;
   @include for-size(tablet) {
     font-size: 1.3em;
+  }
+  @include for-size(laptop) {
+    font-size: 1.1em;
   }
 }
 .tasks__button {
@@ -109,6 +119,11 @@
     font-size: 1.1em;
     border-width: 3px;
   }
+  @include for-size(laptop) {
+    width: 75px;
+    height: 35px;
+    font-size: 0.9em;
+  }
 }
 .tasks__container {
   display: flex;
@@ -130,6 +145,10 @@
     @include for-size(tablet) {
       font-size: 1.3em;
     }
+    @include for-size(laptop) {
+      font-size: 1.1em;
+      margin-top: 0;
+    }
   }
   &__select {
     border-radius: 10px;
@@ -140,6 +159,11 @@
     @include for-size(tablet) {
       font-size: 1.2em;
       border-width: 3px;
+      width: 40%;
+      margin-left: 5px;
+    }
+    @include for-size(laptop) {
+      font-size: 1em;
     }
     &--current {
       border: 2px solid darken($secondary, 30%);
@@ -151,6 +175,9 @@
       background-color: lighten($background, 10%);
       @include for-size(tablet) {
         font-size: 0.7em;
+      }
+      @include for-size(laptop) {
+        font-size: 1em;
       }
     }
   }
@@ -226,6 +253,10 @@
         font-size: 1.2em;
         padding: 8px;
       }
+      @include for-size(laptop) {
+        font-size: 1em;
+        padding: 5px;
+      }
     }
   }
   &__buttons {
@@ -242,6 +273,9 @@
     padding: 1px;
     @include for-size(tablet) {
       font-size: 1.2em;
+    }
+    @include for-size(laptop) {
+      font-size: 1em;
     }
     &--finish-date {
       font-size: 0.6em;
@@ -263,5 +297,8 @@
   }
   @include for-size(tablet) {
     font-size: 1.3em;
+  }
+  @include for-size(laptop) {
+    font-size: 1em;
   }
 }
