@@ -6,8 +6,15 @@
   @include for-size(tablet) {
     padding: 50px 15% 5px 15%;
   }
+  @include for-size(laptop) {
+    padding: 50px 25% 5px 25%;
+  }
+  @include for-size(desktop) {
+    padding: 50px 25% 5px 25%;
+  }
 }
 .header__navbutton {
+  cursor: pointer;
   border-color: lighten($tertiary, 10%);
   background-color: darken($secondary, 5%);
   margin-left: 1px;

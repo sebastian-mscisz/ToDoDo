@@ -13,6 +13,10 @@
     padding: 5px 15% 5px 15%;
     font-size: 2.5em;
   }
+  @include for-size(desktop) {
+    padding: 5px 25% 5px 25%;
+    font-size: 3em;
+  }
 }
 
 .start-view__logo {
@@ -23,6 +27,10 @@
   }
   @include for-size(laptop) {
     height: 175px;
+  }
+  @include for-size(desktop) {
+    margin-top: 2.5%;
+    height: 300px;
   }
 }
 
@@ -47,6 +55,7 @@
 }
 
 .start-view__button {
+  cursor: pointer;
   border-color: lighten($tertiary, 10%);
   background-color: darken($secondary, 5%);
   margin: 3px 1px 3px 1px;
@@ -57,7 +66,6 @@
   color: $text-color;
   border-radius: 10px;
   @include for-size(tablet) {
-    margin: 15px 0;
     width: 115px;
     height: 55px;
     font-size: 1.1em;
@@ -76,8 +84,11 @@
   &--tasks {
     width: 100%;
     @include for-size(laptop) {
-      margin-left: 15%;
-      margin-right: 15%;
+      margin: 15px 15%;
+    }
+    @include for-size(desktop) {
+      margin-left: 25%;
+      margin-right: 25%;
     }
   }
 }
