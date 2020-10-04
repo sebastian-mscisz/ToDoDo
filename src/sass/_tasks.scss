@@ -49,6 +49,7 @@
   }
 }
 .tasks__header {
+  cursor: pointer;
   width: 100%;
   font-size: 1.2em;
   padding: 7px 0px 7px 0px;
@@ -59,6 +60,9 @@
   }
   @include for-size(laptop) {
     font-size: 1.4em;
+  }
+  @include for-size(desktop) {
+    font-size: 1.6em;
   }
 }
 .tasks__form {
@@ -97,6 +101,9 @@
   @include for-size(laptop) {
     font-size: 1.1em;
   }
+  @include for-size(laptop) {
+    padding-right: 25px;
+  }
 }
 .tasks__button {
   border-color: darken($primary, 20%);
@@ -132,6 +139,10 @@
   padding: 5px;
   @include for-size(tablet) {
     padding: 15px;
+  }
+  @include for-size(tablet) {
+    margin: auto;
+    width: 75%;
   }
 }
 .tasks__sort {
@@ -223,7 +234,6 @@
   &__date {
     padding: 2px;
     display: flex;
-    min-width: 35%;
     justify-content: flex-end;
   }
   &__tags {
@@ -232,6 +242,7 @@
     width: 100%;
     padding: 4px;
     flex-grow: 1;
+    justify-content: center;
     &__tag {
       align-items: center;
       background: lighten($button-color, 10%);
@@ -271,16 +282,28 @@
   &__paragraph {
     font-size: 0.9em;
     padding: 1px;
+    display: flex;
+    align-items: center;
     @include for-size(tablet) {
       font-size: 1.2em;
     }
     @include for-size(laptop) {
       font-size: 1em;
     }
+    @include for-size(desktop) {
+      padding: 3px;
+    }
     &--finish-date {
       font-size: 0.6em;
       font-style: italic;
     }
+  }
+  &__late-alert {
+    color: red;
+    background-color: #fefefe;
+    padding: 1px;
+    border: 1px solid red;
+    border-radius: 50%;
   }
 }
 .tasks__icon {
@@ -300,5 +323,42 @@
   }
   @include for-size(laptop) {
     font-size: 1em;
+  }
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  &:hover {
+    .tooltip__text {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+  &__text {
+    visibility: hidden;
+    width: 120px;
+    background-color: #d9534f;
+    color: #fefefe;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #d43f3a transparent transparent transparent;
+    }
   }
 }

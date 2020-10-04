@@ -21,6 +21,8 @@ const CurrentTaskList = (props) => {
           );
       });
       let date = new Date(item.dueDate);
+      let dateNow = new Date();
+      const oneDay = 24 * 60 * 60 * 1000;
       let dueDate =
         date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
       return (
@@ -39,10 +41,21 @@ const CurrentTaskList = (props) => {
                 </p>
               </div>
               <div className="tasks__item__date">
-                <p className="tasks__item__paragraph">
-                  <span className="fas fa-clock"> </span>&nbsp;
-                  {dueDate}
-                </p>
+                {dateNow - date > oneDay ? (
+                  <p className="tasks__item__paragraph">
+                    <span className="fas fa-clock"> </span>&nbsp;
+                    {dueDate}&nbsp;
+                    <div class="tooltip">
+                      <span class="tasks__item__late-alert fas fa-exclamation-circle"></span>
+                      <span class="tooltip__text">Spóźnione zadanie!</span>
+                    </div>
+                  </p>
+                ) : (
+                  <p className="tasks__item__paragraph">
+                    <span className="fas fa-clock"> </span>&nbsp;
+                    {dueDate}
+                  </p>
+                )}
               </div>
             </div>
             <div className="tasks__row">
