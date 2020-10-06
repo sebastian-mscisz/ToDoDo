@@ -1,5 +1,4 @@
 var express = require("express");
-// var connection = require("../connection.js");
 var router = express.Router();
 var mysql = require("mysql");
 
@@ -8,12 +7,6 @@ var connection = mysql.createPool({
   user: "sql7363789",
   password: "XbQlHmSehp",
   database: "sql7363789",
-  // host: "tododo.mysql.database.azure.com",
-  // user: "artuks@tododo",
-  // password: "Sebmsc1356",
-  // database: "ToDoDoBase",
-  // port: 3306,
-  // ssl: true,
   connectionLimit: 10,
 });
 

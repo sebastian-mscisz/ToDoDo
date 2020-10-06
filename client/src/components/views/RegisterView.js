@@ -20,6 +20,7 @@ class RegisterView extends Component {
     loginExistsMessage: "Taki login już istnieje.",
   };
 
+  // -- function used to handle user changes in register inputs  -- //
   handleInputChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -34,16 +35,20 @@ class RegisterView extends Component {
     }
   };
 
+  // -- function used to handle register submit -- //
   handleRegisterSubmit = (e) => {
     e.preventDefault();
     const login = this.state.login;
     const password = this.state.password;
     const validation = this.registerValidation();
+    // -- validation checks if login and password are longer than 3 characters -- //
     if (validation.correct) {
+      // -- fetching from database if given register login is already in use -- //
       fetch(`http://localhost:9000/requestAPI/userlist?login=${login}`)
         .then((res) => res.json())
         .then((res) => {
           if (res.length != 0) {
+            // -- if login already exists it prompts an error message -- //
             let errors = { ...this.state.errors };
             errors["loginExists"] = true;
             this.setState({
@@ -51,6 +56,7 @@ class RegisterView extends Component {
               password: "",
             });
           } else {
+            // -- if login is available user is created with given login and password -- //
             fetch(`http://localhost:9000/requestAPI/addUser`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -69,12 +75,14 @@ class RegisterView extends Component {
               .catch((err) => err);
           }
         })
+        // -- for handling error if connection to database wasn't acquired -- //
         .catch((err) =>
           this.setState({
             connectionFailMessage: true,
           })
         );
     } else {
+      // -- for handling input validation -- //
       let errors = { ...this.state.errors };
       errors["loginLength"] = !validation.login;
       errors["passwordLength"] = !validation.password;
@@ -84,6 +92,8 @@ class RegisterView extends Component {
       });
     }
   };
+
+  // -- function for validating if input values are longer than 3 characters -- //
   registerValidation = () => {
     let login = false;
     let password = false;
