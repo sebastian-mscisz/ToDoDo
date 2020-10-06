@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import NewTask from "./NewTask";
-import EditTask from "./EditTask";
-import CurrentTaskList from "./CurrentTaskList";
-import FinishedTaskList from "./FinishedTaskList";
+import NewTask from "../utils/NewTask";
+import EditTask from "../utils/EditTask";
+import CurrentTaskList from "../utils/CurrentTaskList";
+import FinishedTaskList from "../utils/FinishedTaskList";
 import { CSSTransition } from "react-transition-group";
 
 class ListView extends Component {
@@ -26,6 +26,7 @@ class ListView extends Component {
     };
   }
 
+  // -- for handling task editing cancellation  -- //
   cancelEdit = () => {
     this.setState({
       edit: {
@@ -39,6 +40,7 @@ class ListView extends Component {
     });
   };
 
+  // -- for handling task sorting by name, due date and finish date  -- //
   sortTaskLists = (taskList, value) => {
     switch (value) {
       case "earliest":
@@ -74,6 +76,7 @@ class ListView extends Component {
     }
   };
 
+  // -- for handling task editing  -- //
   handleEditTask = (id) => {
     const editedTask = this.props.tasks.filter((task) => task.id === id);
     let editedDate;
@@ -94,6 +97,7 @@ class ListView extends Component {
     });
   };
 
+  // -- for handling task editing submit -- //
   handleEditSubmit = (e) => {
     e.preventDefault;
     this.props.editTask(
@@ -106,6 +110,7 @@ class ListView extends Component {
     this.cancelEdit();
   };
 
+  // -- function used to handle user changes in inputs, both from adding task and editing  -- //
   handleInputChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -132,6 +137,7 @@ class ListView extends Component {
     }
   };
 
+  // -- for handling task adding -- //
   handleAddTask = (e) => {
     e.preventDefault();
     this.props.addTask(this.state.name, this.state.dueDate, this.state.tags);
@@ -143,12 +149,14 @@ class ListView extends Component {
     });
   };
 
+  // -- for removing a tag from currently created task -- //
   removeTag = (i) => {
     const newTags = [...this.state.tags];
     newTags.splice(i, 1);
     this.setState({ tags: newTags });
   };
 
+  // -- for removing a tag from currently edited task -- //
   editRemoveTag = (i) => {
     const newTags = [...this.state.edit.tags];
     newTags.splice(i, 1);
@@ -157,6 +165,7 @@ class ListView extends Component {
     this.setState({ edit });
   };
 
+  // -- for handling tag adding and deleting from currently created task -- //
   inputKeyDown = (e) => {
     const val = e.target.value;
     if (e.key === "Enter" && val) {
@@ -172,6 +181,7 @@ class ListView extends Component {
     }
   };
 
+  // -- for handling tag adding and deleting from currently edited task -- //
   editInputKeyDown = (e) => {
     const val = e.target.value;
     if (e.key === "Enter" && val) {

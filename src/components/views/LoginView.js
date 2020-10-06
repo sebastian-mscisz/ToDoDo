@@ -13,6 +13,7 @@ class LoginView extends Component {
 
   loginFailMessage = (<p>Zły login lub hasło</p>);
 
+  // -- function used to handle user changes in login inputs  -- //
   handleInputChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -26,6 +27,8 @@ class LoginView extends Component {
       });
     }
   };
+
+  // -- function used to handle login submit -- //
   handleLoginSubmit = (e) => {
     e.preventDefault();
     const login = this.state.login;
@@ -36,11 +39,13 @@ class LoginView extends Component {
       .then((res) => res.json())
       .then((res) => {
         if (res != "") {
+          // -- if login and password are correct, user is logged -- //
           this.props.handleLogIn(res[0]);
           this.setState({
             loginFail: false,
           });
         } else {
+          // -- if not it prompts incorrect input error -- //
           this.setState({
             login: "",
             password: "",
@@ -48,6 +53,7 @@ class LoginView extends Component {
           });
         }
       })
+      // -- for handling error if connection to database wasn't acquired -- //
       .catch((err) =>
         this.setState({
           connectionFailMessage: true,

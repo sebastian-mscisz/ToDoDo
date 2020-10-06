@@ -64,6 +64,7 @@
   }
 }
 .forms__button {
+  cursor: pointer;
   border-color: lighten($tertiary, 10%);
   background-color: darken($secondary, 5%);
   margin: 3px 0;
@@ -90,10 +91,20 @@
   }
 }
 .forms__error-text {
+  font-size: 0.8em;
   height: 18px;
   padding: 5px 0px 5px 0px;
   font-style: italic;
   color: lighten(orange, 15%);
   text-align: center;
   width: 100%;
+  @include for-size(tablet) {
+    font-size: 1.3em;
+  }
+  @include for-size(laptop) {
+    font-size: 1.1em;
+  }
+  @include for-size(desktop) {
+    font-size: 1em;
+  }
 }

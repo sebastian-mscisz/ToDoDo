@@ -36,6 +36,7 @@ class ToDoDo extends Component {
     this.getTasks(user.id);
   };
 
+  // -- function for fetching tasks from cloud database for current logged user -- //
   getTasks = (id) => {
     fetch(`http://localhost:9000/requestAPI/tasks?userId=${id}`)
       .then((res) => res.json())
@@ -58,6 +59,7 @@ class ToDoDo extends Component {
     });
   };
 
+  // -- function for log in as guest to check app without saving any data to database -- //
   handleGuestMode = () => {
     this.setState({
       loggedIn: false,
@@ -69,6 +71,7 @@ class ToDoDo extends Component {
     <Redirect to="/list" />;
   };
 
+  // -- function used for toggling task completion -- //
   toggleFinishTask = (id, value) => {
     const taskIndex = this.state.tasks.findIndex((task) => task.id == id);
     let tasks = [...this.state.tasks];
@@ -107,6 +110,7 @@ class ToDoDo extends Component {
     }
   };
 
+  // -- for handling task adding to database and in app state if in guest mode -- //
   addTask = (name, dueDate, tags) => {
     if (this.state.guest === false) {
       fetch(`http://localhost:9000/requestAPI/addTask`, {
@@ -143,6 +147,7 @@ class ToDoDo extends Component {
     }
   };
 
+  // -- for handling task editing in database and in app state -- //
   editTask = (id, name, dueDate, tags) => {
     if (this.state.guest === false) {
       fetch(`http://localhost:9000/requestAPI/editTask`, {
@@ -172,6 +177,7 @@ class ToDoDo extends Component {
     });
   };
 
+  // -- for handling task deletion in database and in app state if in guest mode -- //
   deleteTask = (id) => {
     if (this.state.guest === false) {
       fetch(`http://localhost:9000/requestAPI/deleteTask`, {
@@ -193,8 +199,6 @@ class ToDoDo extends Component {
       });
     }
   };
-
-  componentDidUpdate() {}
 
   render() {
     return (
