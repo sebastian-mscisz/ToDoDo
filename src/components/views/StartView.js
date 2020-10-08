@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import dodoImg from "../assets/dodo.png";
+import dodoImg from "../../assets/dodo.png";
 
 const StartView = (props) => {
   return (
