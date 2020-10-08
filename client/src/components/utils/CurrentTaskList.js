@@ -45,10 +45,10 @@ const CurrentTaskList = (props) => {
                   <p className="tasks__item__paragraph">
                     <span className="fas fa-clock"> </span>&nbsp;
                     {dueDate}&nbsp;
-                    <div class="tooltip">
-                      <span class="tasks__item__late-alert fas fa-exclamation-circle"></span>
-                      <span class="tooltip__text">Spóźnione zadanie!</span>
-                    </div>
+                    <span className="tooltip">
+                      <span className="tasks__item__late-alert fas fa-exclamation-circle"></span>
+                      <span className="tooltip__text">Spóźnione zadanie!</span>
+                    </span>
                   </p>
                 ) : (
                   <p className="tasks__item__paragraph">

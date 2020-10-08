@@ -10,46 +10,6 @@ var connection = mysql.createPool({
   connectionLimit: 10,
 });
 
-// function handleDisconnect(connection) {
-//   connection.on("error", function (err) {
-//     console.log("kurwa błąd");
-//     if (!err.fatal) {
-//       return;
-//     }
-
-//     if (err.code !== "ECONNRESET") {
-//       throw err;
-//     }
-
-//     console.log("Re-connecting lost connection: " + err.stack);
-
-//     connection = new mysql.createConnection(connection.config);
-//     connection.connect();
-//     handleDisconnect(connection);
-//   });
-// }
-
-// connection.on("error", function (err) {
-//   console.log(err + " NYANIIIIIIIIIIII " + err.code);
-//   if (!err.fatal) {
-//     return;
-//   }
-
-//   // if (err.code !== "PROTOCOL_CONNECTION_LOST") {
-//   //   throw err;
-//   // }
-//   if (err.code !== "ECONNRESET") {
-//     throw err;
-//   }
-
-//   console.log("Re-connecting lost connection: " + err.stack);
-
-//   connection = new mysql.createConnection(connection.config);
-//   connection.connect();
-// });
-
-// handleDisconnect(connection);
-
 router.get("/userlist", function (req, res) {
   let login = req.query.login;
   connection.query(

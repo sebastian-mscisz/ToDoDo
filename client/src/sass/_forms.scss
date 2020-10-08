@@ -74,6 +74,11 @@
   font-weight: 600;
   color: $text-color;
   border-radius: 10px;
+  &:hover {
+    background-color: $tertiary;
+    color: darken($text-color, 10%);
+    transition: all 300ms;
+  }
   @include for-size(tablet) {
     margin: 15px 0;
     width: 115px;

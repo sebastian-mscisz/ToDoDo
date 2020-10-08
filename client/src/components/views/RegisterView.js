@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import Loader from "react-loader-spinner";
 
 class RegisterView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: false,
       login: "",
       password: "",
       errors: {
@@ -43,8 +45,12 @@ class RegisterView extends Component {
     const validation = this.registerValidation();
     // -- validation checks if login and password are longer than 3 characters -- //
     if (validation.correct) {
+      this.setState({ loading: true });
       // -- fetching from database if given register login is already in use -- //
-      fetch(`http://localhost:9000/requestAPI/userlist?login=${login}`)
+      // fetch(`http://localhost:9000/requestAPI/userlist?login=${login}`)
+      fetch(
+        `https://pacific-sierra-82400.herokuapp.com/requestAPI/userlist?login=${login}`
+      )
         .then((res) => res.json())
         .then((res) => {
           if (res.length != 0) {
@@ -52,21 +58,28 @@ class RegisterView extends Component {
             let errors = { ...this.state.errors };
             errors["loginExists"] = true;
             this.setState({
+              loading: false,
               errors,
               password: "",
             });
           } else {
             // -- if login is available user is created with given login and password -- //
-            fetch(`http://localhost:9000/requestAPI/addUser`, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ login: login, password: password }),
-            })
+            // fetch(`http://localhost:9000/requestAPI/addUser`, {
+            fetch(
+              `https://pacific-sierra-82400.herokuapp.com/requestAPI/addUser`,
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ login: login, password: password }),
+              }
+            )
               .then((res) => res.json())
               .then((res) => {
+                this.props.handleJustRegisteredState();
                 let errors = { ...this.state.errors };
                 errors["loginExists"] = false;
                 this.setState({
+                  loading: false,
                   login: "",
                   password: "",
                 });
@@ -78,6 +91,7 @@ class RegisterView extends Component {
         // -- for handling error if connection to database wasn't acquired -- //
         .catch((err) =>
           this.setState({
+            loading: false,
             connectionFailMessage: true,
           })
         );
@@ -116,6 +130,15 @@ class RegisterView extends Component {
   render() {
     return (
       <>
+        {this.state.loading && (
+          <Loader
+            className="spinner"
+            type="TailSpin"
+            color="#40cac6"
+            height={100}
+            width={100}
+          />
+        )}
         <h1 className="forms__header">Zarejestruj się!</h1>
         <form className="forms__form" onSubmit={this.handleRegisterSubmit}>
           <input

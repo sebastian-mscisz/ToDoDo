@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import Loader from "react-loader-spinner";
 
 class LoginView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: false,
       login: "",
       password: "",
       loginFail: false,
@@ -11,7 +13,7 @@ class LoginView extends Component {
     };
   }
 
-  loginFailMessage = (<p>Zły login lub hasło</p>);
+  loginFailMessage = "Zły login lub hasło";
 
   // -- function used to handle user changes in login inputs  -- //
   handleInputChange = (e) => {
@@ -33,8 +35,10 @@ class LoginView extends Component {
     e.preventDefault();
     const login = this.state.login;
     const password = this.state.password;
+    this.setState({ loading: true });
     fetch(
-      `http://localhost:9000/requestAPI/logIn?login=${login}&password=${password}`
+      // `http://localhost:9000/requestAPI/logIn?login=${login}&password=${password}`
+      `https://pacific-sierra-82400.herokuapp.com/requestAPI/logIn?login=${login}&password=${password}`
     )
       .then((res) => res.json())
       .then((res) => {
@@ -43,6 +47,7 @@ class LoginView extends Component {
           this.props.handleLogIn(res[0]);
           this.setState({
             loginFail: false,
+            loading: false,
           });
         } else {
           // -- if not it prompts incorrect input error -- //
@@ -50,6 +55,7 @@ class LoginView extends Component {
             login: "",
             password: "",
             loginFail: true,
+            loading: false,
           });
         }
       })
@@ -57,12 +63,22 @@ class LoginView extends Component {
       .catch((err) =>
         this.setState({
           connectionFailMessage: true,
+          loading: false,
         })
       );
   };
   render() {
     return (
       <>
+        {this.state.loading && (
+          <Loader
+            className="spinner"
+            type="TailSpin"
+            color="#40cac6"
+            height={100}
+            width={100}
+          />
+        )}
         <h1 className="forms__header">Zaloguj się!</h1>
         <form className="forms__form" onSubmit={this.handleLoginSubmit}>
           <input

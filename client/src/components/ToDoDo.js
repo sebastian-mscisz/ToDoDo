@@ -17,6 +17,7 @@ class ToDoDo extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      justRegistered: false,
       loggedIn: false,
       currentUser: "",
       tasks: [],
@@ -25,6 +26,13 @@ class ToDoDo extends Component {
       guestTaskId: 0,
     };
   }
+
+  handleJustRegisteredState = () => {
+    this.setState({
+      justRegistered: true,
+    });
+    setTimeout(() => this.setState({ justRegistered: false }), 5000);
+  };
 
   handleLogIn = (user) => {
     this.setState({
@@ -38,7 +46,10 @@ class ToDoDo extends Component {
 
   // -- function for fetching tasks from cloud database for current logged user -- //
   getTasks = (id) => {
-    fetch(`http://localhost:9000/requestAPI/tasks?userId=${id}`)
+    // fetch(`http://localhost:9000/requestAPI/tasks?userId=${id}`)
+    fetch(
+      `https://pacific-sierra-82400.herokuapp.com/requestAPI/tasks?userId=${id}`
+    )
       .then((res) => res.json())
       .then((res) => {
         this.setState({
@@ -95,15 +106,19 @@ class ToDoDo extends Component {
       tasks,
     });
     if (this.state.guest === false) {
-      fetch(`http://localhost:9000/requestAPI/updateTask`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          taskId: id,
-          finished: value,
-          finishDate: date,
-        }),
-      })
+      // fetch(`http://localhost:9000/requestAPI/updateTask`, {
+      fetch(
+        `https://pacific-sierra-82400.herokuapp.com/requestAPI/updateTask`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            taskId: id,
+            finished: value,
+            finishDate: date,
+          }),
+        }
+      )
         .then((res) => res.json())
         .then((res) => {})
         .catch((err) => err);
@@ -113,7 +128,8 @@ class ToDoDo extends Component {
   // -- for handling task adding to database and in app state if in guest mode -- //
   addTask = (name, dueDate, tags) => {
     if (this.state.guest === false) {
-      fetch(`http://localhost:9000/requestAPI/addTask`, {
+      // fetch(`http://localhost:9000/requestAPI/addTask`, {
+      fetch(`https://pacific-sierra-82400.herokuapp.com/requestAPI/addTask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -150,7 +166,8 @@ class ToDoDo extends Component {
   // -- for handling task editing in database and in app state -- //
   editTask = (id, name, dueDate, tags) => {
     if (this.state.guest === false) {
-      fetch(`http://localhost:9000/requestAPI/editTask`, {
+      // fetch(`http://localhost:9000/requestAPI/editTask`, {
+      fetch(`https://pacific-sierra-82400.herokuapp.com/requestAPI/editTask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -180,13 +197,17 @@ class ToDoDo extends Component {
   // -- for handling task deletion in database and in app state if in guest mode -- //
   deleteTask = (id) => {
     if (this.state.guest === false) {
-      fetch(`http://localhost:9000/requestAPI/deleteTask`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          taskId: id,
-        }),
-      })
+      // fetch(`http://localhost:9000/requestAPI/deleteTask`, {
+      fetch(
+        `https://pacific-sierra-82400.herokuapp.com/requestAPI/deleteTask`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            taskId: id,
+          }),
+        }
+      )
         .then((res) => res.json())
         .then((res) => {
           this.getTasks(this.state.currentUser.id);
@@ -216,6 +237,7 @@ class ToDoDo extends Component {
                   handleLogOut={this.handleLogOut}
                   loggedIn={this.state.loggedIn}
                   guestIn={this.state.guest}
+                  justRegistered={this.state.justRegistered}
                 />
               )}
             />
@@ -233,7 +255,12 @@ class ToDoDo extends Component {
             <Route
               path="/register"
               exact
-              render={(props) => <RegisterView {...props} />}
+              render={(props) => (
+                <RegisterView
+                  {...props}
+                  handleJustRegisteredState={this.handleJustRegisteredState}
+                />
+              )}
             />
             <Route
               path="/list"
