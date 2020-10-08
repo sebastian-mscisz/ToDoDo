@@ -184,6 +184,12 @@
     background-color: inherit;
     padding: 4px;
     width: 60%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 15px;
+    background: url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIPnI+py+0/hJzz0IruwjsVADs=);
+    background-repeat: no-repeat;
+    background-position: 95% 42%;
     @include for-size(tablet) {
       font-size: 1.2em;
       border-width: 3px;
