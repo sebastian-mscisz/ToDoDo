@@ -52,6 +52,11 @@ const StartView = (props) => {
           &nbsp;;)
         </p>
       )}
+      {props.justRegistered && (
+        <p className="start-view__registered-info">
+          Założono konto pomyślnie :)
+        </p>
+      )}
     </>
   );
 };
