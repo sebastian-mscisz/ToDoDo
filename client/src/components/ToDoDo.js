@@ -47,9 +47,7 @@ class ToDoDo extends Component {
   // -- function for fetching tasks from cloud database for current logged user -- //
   getTasks = (id) => {
     // fetch(`http://localhost:9000/requestAPI/tasks?userId=${id}`)
-    fetch(
-      `https://pacific-sierra-82400.herokuapp.com/requestAPI/tasks?userId=${id}`
-    )
+    fetch(`https://tododo-sm.herokuapp.com/requestAPI/tasks?userId=${id}`)
       .then((res) => res.json())
       .then((res) => {
         this.setState({
@@ -107,18 +105,15 @@ class ToDoDo extends Component {
     });
     if (this.state.guest === false) {
       // fetch(`http://localhost:9000/requestAPI/updateTask`, {
-      fetch(
-        `https://pacific-sierra-82400.herokuapp.com/requestAPI/updateTask`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            taskId: id,
-            finished: value,
-            finishDate: date,
-          }),
-        }
-      )
+      fetch(`https://tododo-sm.herokuapp.com/requestAPI/updateTask`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          taskId: id,
+          finished: value,
+          finishDate: date,
+        }),
+      })
         .then((res) => res.json())
         .then((res) => {})
         .catch((err) => err);
@@ -129,7 +124,7 @@ class ToDoDo extends Component {
   addTask = (name, dueDate, tags) => {
     if (this.state.guest === false) {
       // fetch(`http://localhost:9000/requestAPI/addTask`, {
-      fetch(`https://pacific-sierra-82400.herokuapp.com/requestAPI/addTask`, {
+      fetch(`https://tododo-sm.herokuapp.com/requestAPI/addTask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -167,7 +162,7 @@ class ToDoDo extends Component {
   editTask = (id, name, dueDate, tags) => {
     if (this.state.guest === false) {
       // fetch(`http://localhost:9000/requestAPI/editTask`, {
-      fetch(`https://pacific-sierra-82400.herokuapp.com/requestAPI/editTask`, {
+      fetch(`https://tododo-sm.herokuapp.com/requestAPI/editTask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -198,16 +193,13 @@ class ToDoDo extends Component {
   deleteTask = (id) => {
     if (this.state.guest === false) {
       // fetch(`http://localhost:9000/requestAPI/deleteTask`, {
-      fetch(
-        `https://pacific-sierra-82400.herokuapp.com/requestAPI/deleteTask`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            taskId: id,
-          }),
-        }
-      )
+      fetch(`https://tododo-sm.herokuapp.com/requestAPI/deleteTask`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          taskId: id,
+        }),
+      })
         .then((res) => res.json())
         .then((res) => {
           this.getTasks(this.state.currentUser.id);

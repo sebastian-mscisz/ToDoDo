@@ -38,7 +38,7 @@ class LoginView extends Component {
     this.setState({ loading: true });
     fetch(
       // `http://localhost:9000/requestAPI/logIn?login=${login}&password=${password}`
-      `https://pacific-sierra-82400.herokuapp.com/requestAPI/logIn?login=${login}&password=${password}`
+      `https://tododo-sm.herokuapp.com/requestAPI/logIn?login=${login}&password=${password}`
     )
       .then((res) => res.json())
       .then((res) => {
