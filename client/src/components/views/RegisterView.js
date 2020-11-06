@@ -47,10 +47,7 @@ class RegisterView extends Component {
     if (validation.correct) {
       this.setState({ loading: true });
       // -- fetching from database if given register login is already in use -- //
-      // fetch(`http://localhost:9000/requestAPI/userlist?login=${login}`)
-      fetch(
-        `https://tododo-sm.herokuapp.com/requestAPI/userlist?login=${login}`
-      )
+      fetch(`http://localhost:9000/requestAPI/userlist?login=${login}`)
         .then((res) => res.json())
         .then((res) => {
           if (res.length != 0) {
@@ -64,8 +61,7 @@ class RegisterView extends Component {
             });
           } else {
             // -- if login is available user is created with given login and password -- //
-            // fetch(`http://localhost:9000/requestAPI/addUser`, {
-            fetch(`https://tododo-sm.herokuapp.com/requestAPI/addUser`, {
+            fetch(`http://localhost:9000/requestAPI/addUser`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ login: login, password: password }),

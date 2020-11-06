@@ -1,15 +1,11 @@
-var mysql = require('mysql');
+var mysql = require("mysql");
 
 var connectionPool = mysql.createPool({
-    host: "sql7.freesqldatabase.com",
-    user: "sql7363789",
-    password: "XbQlHmSehp",
-    database: "sql7363789",
-    connectionLimit: 10,
-  });
-
-// connectionPool.connect(function(err) {
-//     if (err) throw err;
-// });
+  host: "localhost",
+  user: "admin",
+  password: "1234",
+  database: "ex",
+  connectionLimit: 10,
+});
 
 module.exports = connectionPool;

@@ -46,8 +46,7 @@ class ToDoDo extends Component {
 
   // -- function for fetching tasks from cloud database for current logged user -- //
   getTasks = (id) => {
-    // fetch(`http://localhost:9000/requestAPI/tasks?userId=${id}`)
-    fetch(`https://tododo-sm.herokuapp.com/requestAPI/tasks?userId=${id}`)
+    fetch(`http://localhost:9000/requestAPI/tasks?userId=${id}`)
       .then((res) => res.json())
       .then((res) => {
         this.setState({
@@ -104,8 +103,7 @@ class ToDoDo extends Component {
       tasks,
     });
     if (this.state.guest === false) {
-      // fetch(`http://localhost:9000/requestAPI/updateTask`, {
-      fetch(`https://tododo-sm.herokuapp.com/requestAPI/updateTask`, {
+      fetch(`http://localhost:9000/requestAPI/updateTask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -123,8 +121,7 @@ class ToDoDo extends Component {
   // -- for handling task adding to database and in app state if in guest mode -- //
   addTask = (name, dueDate, tags) => {
     if (this.state.guest === false) {
-      // fetch(`http://localhost:9000/requestAPI/addTask`, {
-      fetch(`https://tododo-sm.herokuapp.com/requestAPI/addTask`, {
+      fetch(`http://localhost:9000/requestAPI/addTask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -161,8 +158,7 @@ class ToDoDo extends Component {
   // -- for handling task editing in database and in app state -- //
   editTask = (id, name, dueDate, tags) => {
     if (this.state.guest === false) {
-      // fetch(`http://localhost:9000/requestAPI/editTask`, {
-      fetch(`https://tododo-sm.herokuapp.com/requestAPI/editTask`, {
+      fetch(`http://localhost:9000/requestAPI/editTask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -192,8 +188,7 @@ class ToDoDo extends Component {
   // -- for handling task deletion in database and in app state if in guest mode -- //
   deleteTask = (id) => {
     if (this.state.guest === false) {
-      // fetch(`http://localhost:9000/requestAPI/deleteTask`, {
-      fetch(`https://tododo-sm.herokuapp.com/requestAPI/deleteTask`, {
+      fetch(`http://localhost:9000/requestAPI/deleteTask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

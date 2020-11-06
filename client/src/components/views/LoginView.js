@@ -37,8 +37,7 @@ class LoginView extends Component {
     const password = this.state.password;
     this.setState({ loading: true });
     fetch(
-      // `http://localhost:9000/requestAPI/logIn?login=${login}&password=${password}`
-      `https://tododo-sm.herokuapp.com/requestAPI/logIn?login=${login}&password=${password}`
+      `http://localhost:9000/requestAPI/logIn?login=${login}&password=${password}`
     )
       .then((res) => res.json())
       .then((res) => {
